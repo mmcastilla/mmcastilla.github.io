@@ -16,7 +16,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f2f5;
             padding: 30px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         
@@ -57,79 +57,94 @@
         }
         
         .leyenda-color {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 4px;
             border-radius: 4px;
-            border: 2px solid #ddd;
         }
         
-        .color-aprobado { border-left: 6px solid #2196F3; background: #e3f2fd; }
-        .color-paralelo { border-left: 6px solid #FF9800; background: #fff3e0; }
-        .color-nota { border-left: 6px solid #9C27B0; background: #f3e5f5; }
-        .color-cursado { border-left: 6px solid #4CAF50; background: #e8f5e9; }
+        .color-aprobado { background: #2196F3; }
+        .color-paralelo { background: #FF9800; }
+        .color-nota { background: #9C27B0; }
+        .color-cursado { background: #4CAF50; }
         
-        /* ========== ESTADOS DE CURSOS ========== */
-        .curso-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
+        /* ========== CONTENEDOR DE CICLOS ========== */
+        .ciclos-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0 20px 0;
+            align-items: flex-start;
         }
         
-        .curso {
-            background: white;
+        .ciclo-columna {
+            min-width: 220px;
+            max-width: 260px;
+            flex: 1;
+            background: #f8f9fa;
             border-radius: 12px;
-            padding: 16px 18px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            position: relative;
+        }
+        
+        .ciclo-titulo {
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a1a2e;
+            padding: 8px;
+            background: #e8eaf0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        /* ========== TARJETAS DE CURSOS ========== */
+        .curso-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
             border: 2px solid #e0e0e0;
             transition: all 0.3s ease;
             position: relative;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-            cursor: default;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
         }
         
-        .curso:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+        .curso-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
         }
-        
-        /* Borde izquierdo según tipo de relación */
-        .curso.requiere-aprobado { border-left: 6px solid #2196F3; }
-        .curso.requiere-paralelo { border-left: 6px solid #FF9800; }
-        .curso.requiere-nota { border-left: 6px solid #9C27B0; }
-        .curso.requiere-cursado { border-left: 6px solid #4CAF50; }
-        .curso.sin-requisitos { border-left: 6px solid #9e9e9e; }
         
         /* Estados */
-        .curso.bloqueado {
-            opacity: 0.55;
+        .curso-card.bloqueado {
+            opacity: 0.5;
             background: #f5f5f5;
-            border-color: #ccc;
+            border-color: #ddd;
         }
-        .curso.bloqueado .curso-nombre {
+        .curso-card.bloqueado .curso-nombre {
             color: #999;
         }
         
-        .curso.disponible {
+        .curso-card.disponible {
             border-color: #4CAF50;
             background: #fafffe;
         }
         
-        .curso.cursando {
+        .curso-card.cursando {
             border-color: #FF9800;
             background: #fffbf0;
         }
         
-        .curso.aprobado {
+        .curso-card.aprobado {
             border-color: #2196F3;
             background: #f0f7ff;
         }
         
-        /* Contenido del curso */
         .curso-header {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            gap: 10px;
+            gap: 8px;
         }
         
         .curso-info {
@@ -138,71 +153,32 @@
         
         .curso-codigo {
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             color: #1a1a2e;
             display: block;
         }
         
         .curso-nombre {
-            font-size: 13px;
+            font-size: 12px;
             color: #555;
             display: block;
-            margin-top: 2px;
+            margin-top: 1px;
+            line-height: 1.3;
         }
         
         .curso-creditos {
-            font-size: 12px;
+            font-size: 11px;
             background: #e8eaf0;
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
             color: #444;
             font-weight: 600;
             white-space: nowrap;
         }
         
-        .curso-estado-badge {
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-top: 6px;
-            display: inline-block;
-        }
-        
-        .badge-bloqueado { background: #e0e0e0; color: #777; }
-        .badge-disponible { background: #c8e6c9; color: #2e7d32; }
-        .badge-cursando { background: #ffe0b2; color: #e65100; }
-        .badge-aprobado { background: #bbdefb; color: #0d47a1; }
-        
-        .curso-requisitos {
-            font-size: 12px;
-            color: #777;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #e8e8e8;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            align-items: center;
-        }
-        
-        .requisito-tag {
-            background: #f0f0f0;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            color: #555;
-        }
-        
-        .requisito-tag.importante {
-            background: #ffebee;
-            color: #c62828;
-        }
-        
-        /* Checkbox personalizado */
         .curso-check {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
             flex-shrink: 0;
             margin-top: 2px;
@@ -214,25 +190,85 @@
             opacity: 0.4;
         }
         
-        /* Tooltip al pasar cursor */
-        .curso[data-tooltip]:hover::after {
+        .curso-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        
+        .badge-bloqueado { background: #e0e0e0; color: #777; }
+        .badge-disponible { background: #c8e6c9; color: #2e7d32; }
+        .badge-cursando { background: #ffe0b2; color: #e65100; }
+        .badge-aprobado { background: #bbdefb; color: #0d47a1; }
+        
+        /* ========== FLECHAS ========== */
+        .flecha-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 30px;
+            padding: 4px 0;
+            position: relative;
+        }
+        
+        .flecha {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.8);
+            white-space: nowrap;
+            cursor: help;
+        }
+        
+        .flecha .arrow {
+            font-size: 18px;
+            line-height: 1;
+        }
+        
+        .flecha-aprobado { color: #2196F3; }
+        .flecha-aprobado .arrow { color: #2196F3; }
+        
+        .flecha-paralelo { color: #FF9800; }
+        .flecha-paralelo .arrow { color: #FF9800; }
+        
+        .flecha-nota { color: #9C27B0; }
+        .flecha-nota .arrow { color: #9C27B0; }
+        
+        .flecha-cursado { color: #4CAF50; }
+        .flecha-cursado .arrow { color: #4CAF50; }
+        
+        .flecha-creditos {
+            color: #e53935;
+            font-size: 10px;
+            background: #ffebee;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid #ef9a9a;
+        }
+        
+        /* Tooltip en flechas */
+        .flecha[data-tooltip]:hover::after {
             content: attr(data-tooltip);
             position: absolute;
-            bottom: calc(100% + 8px);
+            bottom: calc(100% + 6px);
             left: 50%;
             transform: translateX(-50%);
             background: #1a1a2e;
             color: white;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
             white-space: nowrap;
-            max-width: 300px;
-            white-space: normal;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             z-index: 100;
-            text-align: center;
-            font-weight: 400;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
         
         /* ========== RESUMEN ========== */
@@ -269,7 +305,6 @@
         .resumen-item .valor.creditos { color: #4CAF50; }
         .resumen-item .valor.electivos { color: #9C27B0; }
         
-        /* ========== BOTÓN REINICIAR ========== */
         .btn-reiniciar {
             background: #ff5252;
             color: white;
@@ -295,9 +330,11 @@
         }
         
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             body { padding: 15px; }
-            .curso-grid { grid-template-columns: 1fr; }
+            .ciclos-container { flex-direction: column; align-items: stretch; }
+            .ciclo-columna { min-width: unset; max-width: unset; }
+            .flecha-container { flex-direction: row; padding: 4px 0; }
             .resumen { flex-direction: column; gap: 10px; }
             .resumen-botones { margin-left: 0; }
         }
@@ -324,8 +361,8 @@
         </span>
     </div>
 
-    <!-- CONTENEDOR DE CURSOS -->
-    <div id="cursoContainer" class="curso-grid"></div>
+    <!-- CONTENEDOR DE CICLOS -->
+    <div id="ciclosContainer" class="ciclos-container"></div>
 
     <!-- RESUMEN -->
     <div class="resumen" id="resumen">
@@ -348,490 +385,528 @@
 
     <script>
         // ================================================================
-        //  DATOS DE CURSOS (MODIFICA AQUÍ CON LOS TUYOS)
+        //  DATOS DE CURSOS (con ciclo explícito)
         // ================================================================
         const cursosData = {
-    // ==================== CICLO 5 ====================
-    '1IND44': {
-        id: '1IND44',
-        nombre: 'Gestión Empresarial',
-        creditos: 3.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: [],
-            creditosRequeridos: 70
-        }
-    },
-    '1IND45': {
-        id: '1IND45',
-        nombre: 'Control Estadístico de Calidad',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1EST21', '1IND65']
-        }
-    },
-    '1INF23': {
-        id: '1INF23',
-        nombre: 'Introducción a la Programación',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND65']
-        }
-    },
-    '1MEC39': {
-        id: '1MEC39',
-        nombre: 'Introducción a la Termodinámica',
-        creditos: 2.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1FIS04', '1MAT07', '1QUI02']
-        }
-    },
-    'ECO204': {
-        id: 'ECO204',
-        nombre: 'Economía General',
-        creditos: 4.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: [],
-            creditosRequeridos: 70
-        }
-    },
-    'MEC266': {
-        id: 'MEC266',
-        nombre: 'Dibujo Mecánico',
-        creditos: 2.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1ING02']
-        }
-    },
+            // ==================== CICLO 5 ====================
+            '1IND44': {
+                id: '1IND44',
+                nombre: 'Gestión Empresarial',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 5,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: [],
+                    creditosRequeridos: 70
+                }
+            },
+            '1IND45': {
+                id: '1IND45',
+                nombre: 'Control Estadístico de Calidad',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 5,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1EST21', '1IND65']
+                }
+            },
+            '1INF23': {
+                id: '1INF23',
+                nombre: 'Introducción a la Programación',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 5,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND65']
+                }
+            },
+            '1MEC39': {
+                id: '1MEC39',
+                nombre: 'Introducción a la Termodinámica',
+                creditos: 2.50,
+                tipo: 'obligatorio',
+                ciclo: 5,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1FIS04', '1MAT07', '1QUI02']
+                }
+            },
+            'ECO204': {
+                id: 'ECO204',
+                nombre: 'Economía General',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 5,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: [],
+                    creditosRequeridos: 70
+                }
+            },
+            'MEC266': {
+                id: 'MEC266',
+                nombre: 'Dibujo Mecánico',
+                creditos: 2.50,
+                tipo: 'obligatorio',
+                ciclo: 5,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1ING02']
+                }
+            },
 
-    // ==================== CICLO 6 ====================
-    '1IND46': {
-        id: '1IND46',
-        nombre: 'Habilidades Directivas',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND44']
-        }
-    },
-    '1IND47': {
-        id: '1IND47',
-        nombre: 'Modelos Determinísticos',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1EST21']
-        }
-    },
-    '1IND48': {
-        id: '1IND48',
-        nombre: 'Analytics 1',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1INF23', '1EST21']
-        }
-    },
-    '1IND49': {
-        id: '1IND49',
-        nombre: 'Fundamentos de la Cadena de Suministros',
-        creditos: 4.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND45']
-        }
-    },
-    'IND231': {
-        id: 'IND231',
-        nombre: 'Ingeniería Económica',
-        creditos: 3.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: [],
-            creditosRequeridos: 80
-        }
-    },
-    'ING217': {
-        id: 'ING217',
-        nombre: 'Resistencia de Materiales 1A',
-        creditos: 3.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['1IND64', '1MAT23', 'MEC266']
-        }
-    },
-    'MEC245': {
-        id: 'MEC245',
-        nombre: 'Laboratorio de Termodinámica General',
-        creditos: 1.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1MEC39']
-        }
-    },
+            // ==================== CICLO 6 ====================
+            '1IND46': {
+                id: '1IND46',
+                nombre: 'Habilidades Directivas',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND44']
+                }
+            },
+            '1IND47': {
+                id: '1IND47',
+                nombre: 'Modelos Determinísticos',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1EST21']
+                }
+            },
+            '1IND48': {
+                id: '1IND48',
+                nombre: 'Analytics 1',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1INF23', '1EST21']
+                }
+            },
+            '1IND49': {
+                id: '1IND49',
+                nombre: 'Fundamentos de la Cadena de Suministros',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND45']
+                }
+            },
+            'IND231': {
+                id: 'IND231',
+                nombre: 'Ingeniería Económica',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: [],
+                    creditosRequeridos: 80
+                }
+            },
+            'ING217': {
+                id: 'ING217',
+                nombre: 'Resistencia de Materiales 1A',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['1IND64', '1MAT23', 'MEC266']
+                }
+            },
+            'MEC245': {
+                id: 'MEC245',
+                nombre: 'Laboratorio de Termodinámica General',
+                creditos: 1.00,
+                tipo: 'obligatorio',
+                ciclo: 6,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1MEC39']
+                }
+            },
 
-    // ==================== CICLO 7 ====================
-    '1IND50': {
-        id: '1IND50',
-        nombre: 'Gestión del Talento Humano',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND46']
-        }
-    },
-    '1IND51': {
-        id: '1IND51',
-        nombre: 'Analytics 2',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND48']
-        }
-    },
-    '1IND52': {
-        id: '1IND52',
-        nombre: 'Diseño de la Cadena de Suministros',
-        creditos: 4.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'nota_minima',
-            cursosRequeridos: ['1IND45'],
-            notaMinima: 8,
-            creditosRequeridos: 0
-        }
-    },
-    '1MEC07': {
-        id: '1MEC07',
-        nombre: 'Ingeniería de Materiales',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1FIS04', '1QUI02']
-        }
-    },
-    '1MEC09': {
-        id: '1MEC09',
-        nombre: 'Taller de Procesos de Manufactura',
-        creditos: 1.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['ING127']
-        }
-    },
-    'IND270': {
-        id: 'IND270',
-        nombre: 'Procesos Industriales',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1MEC39']
-        }
-    },
-    'IND275': {
-        id: 'IND275',
-        nombre: 'Control de Gestión Industrial',
-        creditos: 4.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['IND231', 'ECO204']
-        }
-    },
+            // ==================== CICLO 7 ====================
+            '1IND50': {
+                id: '1IND50',
+                nombre: 'Gestión del Talento Humano',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND46']
+                }
+            },
+            '1IND51': {
+                id: '1IND51',
+                nombre: 'Analytics 2',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND48']
+                }
+            },
+            '1IND52': {
+                id: '1IND52',
+                nombre: 'Diseño de la Cadena de Suministros',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'nota_minima',
+                    cursosRequeridos: ['1IND45'],
+                    notaMinima: 8,
+                    creditosRequeridos: 0
+                }
+            },
+            '1MEC07': {
+                id: '1MEC07',
+                nombre: 'Ingeniería de Materiales',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1FIS04', '1QUI02']
+                }
+            },
+            '1MEC09': {
+                id: '1MEC09',
+                nombre: 'Taller de Procesos de Manufactura',
+                creditos: 1.00,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['ING127']
+                }
+            },
+            'IND270': {
+                id: 'IND270',
+                nombre: 'Procesos Industriales',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1MEC39']
+                }
+            },
+            'IND275': {
+                id: 'IND275',
+                nombre: 'Control de Gestión Industrial',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 7,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['IND231', 'ECO204']
+                }
+            },
 
-    // ==================== CICLO 8 ====================
-    '1IND53': {
-        id: '1IND53',
-        nombre: 'Dinámica de la Cadena de Suministro Esbelta',
-        creditos: 4.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'nota_minima',
-            cursosRequeridos: ['1IND49'],
-            notaMinima: 8
-        }
-    },
-    '1IND59': {
-        id: '1IND59',
-        nombre: 'Simulación',
-        creditos: 2.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND47']
-        }
-    },
-    '1MEC10': {
-        id: '1MEC10',
-        nombre: 'Procesos de Manufactura',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['MEC266', '1MEC09', '1MEC07']
-        }
-    },
-    'IEE272': {
-        id: 'IEE272',
-        nombre: 'Electricidad Industrial',
-        creditos: 2.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1FIS06']
-        }
-    },
-    'IND277': {
-        id: 'IND277',
-        nombre: 'Laboratorio de Procesos Industriales',
-        creditos: 1.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'cursado_o_paralelo',
-            cursosRequeridos: ['IND270']
-        }
-    },
-    'IND283': {
-        id: 'IND283',
-        nombre: 'Mercadotecnia Industrial',
-        creditos: 3.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND44', '1EST21']
-        }
-    },
-    'IND284': {
-        id: 'IND284',
-        nombre: 'Finanzas Industriales',
-        creditos: 3.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['IND275']
-        }
-    },
-    '1IND43': {
-        id: '1IND43',
-        nombre: 'Práctica Supervisada Preprofesional',
-        creditos: 0.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: [],
-            creditosRequeridos: 130
-        }
-    },
+            // ==================== CICLO 8 ====================
+            '1IND53': {
+                id: '1IND53',
+                nombre: 'Dinámica de la Cadena de Suministro Esbelta',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'nota_minima',
+                    cursosRequeridos: ['1IND49'],
+                    notaMinima: 8
+                }
+            },
+            '1IND59': {
+                id: '1IND59',
+                nombre: 'Simulación',
+                creditos: 2.00,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND47']
+                }
+            },
+            '1MEC10': {
+                id: '1MEC10',
+                nombre: 'Procesos de Manufactura',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['MEC266', '1MEC09', '1MEC07']
+                }
+            },
+            'IEE272': {
+                id: 'IEE272',
+                nombre: 'Electricidad Industrial',
+                creditos: 2.50,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1FIS06']
+                }
+            },
+            'IND277': {
+                id: 'IND277',
+                nombre: 'Laboratorio de Procesos Industriales',
+                creditos: 1.00,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'cursado_o_paralelo',
+                    cursosRequeridos: ['IND270']
+                }
+            },
+            'IND283': {
+                id: 'IND283',
+                nombre: 'Mercadotecnia Industrial',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND44', '1EST21']
+                }
+            },
+            'IND284': {
+                id: 'IND284',
+                nombre: 'Finanzas Industriales',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['IND275']
+                }
+            },
+            '1IND43': {
+                id: '1IND43',
+                nombre: 'Práctica Supervisada Preprofesional',
+                creditos: 0.50,
+                tipo: 'obligatorio',
+                ciclo: 8,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: [],
+                    creditosRequeridos: 130
+                }
+            },
 
-    // ==================== CICLO 9 ====================
-    '1IND54': {
-        id: '1IND54',
-        nombre: 'Automatización e Industria 4.0',
-        creditos: 4.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['IEE272', '1MEC10', 'IND277']
-        }
-    },
-    '1IND55': {
-        id: '1IND55',
-        nombre: 'Proyecto de Mejora',
-        creditos: 2.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND51', '1IND53']
-        }
-    },
-    '1IND56': {
-        id: '1IND56',
-        nombre: 'Proyecto de Ingeniería Industrial 1',
-        creditos: 2.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['1IND43', '1IND55', '1IND91']
-        }
-    },
-    '1IND61': {
-        id: '1IND61',
-        nombre: 'Análisis y Diseño de Sistemas',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND53']
-        }
-    },
-    '1IND91': {
-        id: '1IND91',
-        nombre: 'Elaboración y Evaluación de Proyectos',
-        creditos: 3.75,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318']
-        }
-    },
-    'IND318': {
-        id: 'IND318',
-        nombre: 'Gestión Ambiental',
-        creditos: 3.50,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['IND270', 'IND277']
-        }
-    },
+            // ==================== CICLO 9 ====================
+            '1IND54': {
+                id: '1IND54',
+                nombre: 'Automatización e Industria 4.0',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['IEE272', '1MEC10', 'IND277']
+                }
+            },
+            '1IND55': {
+                id: '1IND55',
+                nombre: 'Proyecto de Mejora',
+                creditos: 2.00,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND51', '1IND53']
+                }
+            },
+            '1IND56': {
+                id: '1IND56',
+                nombre: 'Proyecto de Ingeniería Industrial 1',
+                creditos: 2.00,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['1IND43', '1IND55', '1IND91']
+                }
+            },
+            '1IND61': {
+                id: '1IND61',
+                nombre: 'Análisis y Diseño de Sistemas',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND53']
+                }
+            },
+            '1IND91': {
+                id: '1IND91',
+                nombre: 'Elaboración y Evaluación de Proyectos',
+                creditos: 3.75,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318']
+                }
+            },
+            'IND318': {
+                id: 'IND318',
+                nombre: 'Gestión Ambiental',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['IND270', 'IND277']
+                }
+            },
 
-    // ==================== CICLO 10 ====================
-    '1IND57': {
-        id: '1IND57',
-        nombre: 'Gestión de la Innovación',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: [],
-            creditosRequeridos: 70
-        }
-    },
-    '1IND58': {
-        id: '1IND58',
-        nombre: 'Proyecto de Ingeniería Industrial 2',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado',
-            cursosRequeridos: ['1IND56']
-        }
-    },
-    'IND201': {
-        id: 'IND201',
-        nombre: 'Ética Profesional en Ingeniería Industrial',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['1IND91']
-        }
-    },
-    'IND328': {
-        id: 'IND328',
-        nombre: 'Gestión de Proyectos',
-        creditos: 3.00,
-        tipo: 'obligatorio',
-        estado: 'bloqueado',
-        nota: null,
-        requisitos: {
-            tipo: 'aprobado_o_paralelo',
-            cursosRequeridos: ['1IND91']
-        }
-    }
-};
+            // ==================== CICLO 10 ====================
+            '1IND57': {
+                id: '1IND57',
+                nombre: 'Gestión de la Innovación',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 10,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: [],
+                    creditosRequeridos: 70
+                }
+            },
+            '1IND58': {
+                id: '1IND58',
+                nombre: 'Proyecto de Ingeniería Industrial 2',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 10,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado',
+                    cursosRequeridos: ['1IND56']
+                }
+            },
+            'IND201': {
+                id: 'IND201',
+                nombre: 'Ética Profesional en Ingeniería Industrial',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 10,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['1IND91']
+                }
+            },
+            'IND328': {
+                id: 'IND328',
+                nombre: 'Gestión de Proyectos',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 10,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['1IND91']
+                }
+            }
+        };
+
         // ================================================================
         //  FUNCIONES PRINCIPALES
         // ================================================================
 
-        // Calcular créditos aprobados (obligatorios + electivos aprobados)
         function calcularCreditosAprobados() {
             let total = 0;
             for (let id in cursosData) {
@@ -843,7 +918,6 @@
             return total;
         }
 
-        // Calcular créditos de electivos aprobados
         function calcularCreditosElectivos() {
             let total = 0;
             for (let id in cursosData) {
@@ -856,7 +930,6 @@
             return total;
         }
 
-        // Contar cursos aprobados
         function contarAprobados() {
             let count = 0;
             for (let id in cursosData) {
@@ -865,7 +938,6 @@
             return count;
         }
 
-        // Verificar si un curso cumple sus requisitos
         function cursoCumpleRequisitos(cursoId) {
             const curso = cursosData[cursoId];
             if (!curso.requisitos) return true;
@@ -873,7 +945,6 @@
             const req = curso.requisitos;
             let cumple = true;
 
-            // 1. Verificar cursos requeridos
             if (req.cursosRequeridos && req.cursosRequeridos.length > 0) {
                 for (let reqId of req.cursosRequeridos) {
                     const cursoReq = cursosData[reqId];
@@ -898,13 +969,11 @@
                 }
             }
 
-            // 2. Verificar créditos mínimos
             if (req.creditosRequeridos) {
                 const creditosAprobados = calcularCreditosAprobados();
                 if (creditosAprobados < req.creditosRequeridos) cumple = false;
             }
 
-            // 3. Verificar electivos (solo para cursos electivos)
             if (req.electivosRequeridos !== undefined && req.electivosRequeridos > 0) {
                 const creditosElectivos = calcularCreditosElectivos();
                 if (creditosElectivos < req.electivosRequeridos) cumple = false;
@@ -913,220 +982,72 @@
             return cumple;
         }
 
-        // Actualizar el estado de todos los cursos según requisitos
         function actualizarEstados() {
-            // Primero, los que ya están aprobados/cursando se mantienen
-            // Solo actualizamos los que están bloqueados o disponibles
             for (let id in cursosData) {
                 const curso = cursosData[id];
                 if (curso.estado === 'aprobado' || curso.estado === 'cursando' || curso.estado === 'cursado') {
-                    continue; // No cambiar estados manuales
+                    continue;
                 }
-
                 const cumple = cursoCumpleRequisitos(id);
-                if (cumple) {
-                    curso.estado = 'disponible';
-                } else {
-                    curso.estado = 'bloqueado';
-                }
+                curso.estado = cumple ? 'disponible' : 'bloqueado';
             }
         }
 
         // ================================================================
-        //  RENDERIZADO
+        //  RENDERIZADO CON CICLOS Y FLECHAS
         // ================================================================
+
+        function getTipoFlecha(tipo) {
+            const mapa = {
+                'aprobado': 'flecha-aprobado',
+                'aprobado_o_paralelo': 'flecha-paralelo',
+                'nota_minima': 'flecha-nota',
+                'cursado_o_paralelo': 'flecha-cursado'
+            };
+            return mapa[tipo] || 'flecha-aprobado';
+        }
+
+        function getSimboloTipo(tipo, notaMinima) {
+            const mapa = {
+                'aprobado': '✅',
+                'aprobado_o_paralelo': '🔄',
+                'nota_minima': `📝≥${notaMinima || 8}`,
+                'cursado_o_paralelo': '📖'
+            };
+            return mapa[tipo] || '✅';
+        }
 
         function renderizar() {
             actualizarEstados();
 
-            const container = document.getElementById('cursoContainer');
+            const container = document.getElementById('ciclosContainer');
             container.innerHTML = '';
 
-            // Ordenar por ID para mantener consistencia
-            const ids = Object.keys(cursosData).sort();
-
-            for (let id of ids) {
+            // Agrupar por ciclo
+            const ciclos = {};
+            for (let id in cursosData) {
                 const curso = cursosData[id];
-                const div = document.createElement('div');
-                
-                // Clases CSS
-                let claseRelacion = 'sin-requisitos';
-                if (curso.requisitos) {
-                    switch (curso.requisitos.tipo) {
-                        case 'aprobado': claseRelacion = 'requiere-aprobado'; break;
-                        case 'aprobado_o_paralelo': claseRelacion = 'requiere-paralelo'; break;
-                        case 'nota_minima': claseRelacion = 'requiere-nota'; break;
-                        case 'cursado_o_paralelo': claseRelacion = 'requiere-cursado'; break;
-                    }
-                }
-                
-                div.className = `curso ${curso.estado} ${claseRelacion}`;
-                
-                // Tooltip
-                let tooltipText = '';
-                if (curso.requisitos) {
-                    const req = curso.requisitos;
-                    const reqCursos = req.cursosRequeridos ? req.cursosRequeridos.join(', ') : 'Ninguno';
-                    let tipoText = '';
-                    switch (req.tipo) {
-                        case 'aprobado': tipoText = '✅ Requiere APROBADO de:'; break;
-                        case 'aprobado_o_paralelo': tipoText = '🔄 Aprobado O cursar en paralelo:'; break;
-                        case 'nota_minima': tipoText = `📝 Nota ≥ ${req.notaMinima} en:`; break;
-                        case 'cursado_o_paralelo': tipoText = '📖 Cursado O en paralelo:'; break;
-                    }
-                    tooltipText = `${tipoText} ${reqCursos}`;
-                    if (req.creditosRequeridos) {
-                        tooltipText += ` | ${req.creditosRequeridos} cr. aprob.`;
-                    }
-                } else {
-                    tooltipText = '📌 Sin requisitos previos';
-                }
-                div.setAttribute('data-tooltip', tooltipText);
-
-                // Checkbox
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'curso-check';
-                checkbox.checked = (curso.estado === 'aprobado' || curso.estado === 'cursado');
-                checkbox.disabled = (curso.estado === 'bloqueado');
-                
-                // Al hacer clic en checkbox: alternar entre disponible y aprobado
-                checkbox.addEventListener('change', function(e) {
-                    e.stopPropagation();
-                    if (this.checked) {
-                        curso.estado = 'aprobado';
-                        curso.nota = 10; // Simulación de nota aprobatoria
-                    } else {
-                        curso.estado = 'disponible';
-                        curso.nota = null;
-                    }
-                    // Re-renderizar todo
-                    renderizar();
-                });
-
-                // Header
-                const header = document.createElement('div');
-                header.className = 'curso-header';
-                
-                const info = document.createElement('div');
-                info.className = 'curso-info';
-                
-                const codigo = document.createElement('span');
-                codigo.className = 'curso-codigo';
-                codigo.textContent = curso.id;
-                
-                const nombre = document.createElement('span');
-                nombre.className = 'curso-nombre';
-                nombre.textContent = curso.nombre || '';
-                
-                info.appendChild(codigo);
-                info.appendChild(nombre);
-                
-                const creditosSpan = document.createElement('span');
-                creditosSpan.className = 'curso-creditos';
-                creditosSpan.textContent = `${curso.creditos} cr.`;
-                
-                header.appendChild(checkbox);
-                header.appendChild(info);
-                header.appendChild(creditosSpan);
-                div.appendChild(header);
-
-                // Badge de estado
-                const badge = document.createElement('span');
-                badge.className = `curso-estado-badge badge-${curso.estado}`;
-                const estadoTexto = {
-                    'bloqueado': '🔒 Bloqueado',
-                    'disponible': '✅ Disponible',
-                    'cursando': '🔄 Cursando',
-                    'aprobado': '🎓 Aprobado',
-                    'cursado': '📖 Cursado'
-                };
-                badge.textContent = estadoTexto[curso.estado] || curso.estado;
-                div.appendChild(badge);
-
-                // Requisitos (texto pequeño)
-                const reqDiv = document.createElement('div');
-                reqDiv.className = 'curso-requisitos';
-                if (curso.requisitos) {
-                    const req = curso.requisitos;
-                    const reqCursos = req.cursosRequeridos ? req.cursosRequeridos.join(', ') : 'Ninguno';
-                    reqDiv.innerHTML = `<span class="requisito-tag">📌 ${reqCursos}</span>`;
-                    if (req.creditosRequeridos) {
-                        const tag = document.createElement('span');
-                        tag.className = 'requisito-tag importante';
-                        tag.textContent = `${req.creditosRequeridos} cr. aprob.`;
-                        reqDiv.appendChild(tag);
-                    }
-                } else {
-                    reqDiv.innerHTML = `<span class="requisito-tag">🌟 Curso inicial</span>`;
-                }
-                div.appendChild(reqDiv);
-
-                container.appendChild(div);
+                const ciclo = curso.ciclo || 0;
+                if (!ciclos[ciclo]) ciclos[ciclo] = [];
+                ciclos[ciclo].push(curso);
             }
 
-            // Actualizar resumen
-            document.getElementById('totalAprobados').textContent = contarAprobados();
-            document.getElementById('totalCreditos').textContent = calcularCreditosAprobados();
-            document.getElementById('totalElectivos').textContent = calcularCreditosElectivos();
-            
-            // Guardar en localStorage para persistencia
-            guardarProgreso();
-        }
+            // Ordenar ciclos
+            const ciclosOrdenados = Object.keys(ciclos).sort((a, b) => a - b);
 
-        // ================================================================
-        //  PERSISTENCIA (localStorage)
-        // ================================================================
+            // Construir columnas
+            for (let ciclo of ciclosOrdenados) {
+                const columna = document.createElement('div');
+                columna.className = 'ciclo-columna';
 
-        function guardarProgreso() {
-            const progreso = {};
-            for (let id in cursosData) {
-                progreso[id] = {
-                    estado: cursosData[id].estado,
-                    nota: cursosData[id].nota
-                };
-            }
-            try {
-                localStorage.setItem('planEstudios_progreso', JSON.stringify(progreso));
-            } catch (e) { /* ignorar */ }
-        }
+                const titulo = document.createElement('div');
+                titulo.className = 'ciclo-titulo';
+                titulo.textContent = `📘 Ciclo ${ciclo}`;
+                columna.appendChild(titulo);
 
-        function cargarProgreso() {
-            try {
-                const data = localStorage.getItem('planEstudios_progreso');
-                if (!data) return;
-                const progreso = JSON.parse(data);
-                for (let id in progreso) {
-                    if (cursosData[id]) {
-                        cursosData[id].estado = progreso[id].estado;
-                        cursosData[id].nota = progreso[id].nota;
-                    }
-                }
-            } catch (e) { /* ignorar */ }
-        }
+                // Ordenar cursos dentro del ciclo
+                const cursosCiclo = ciclos[ciclo].sort((a, b) => a.id.localeCompare(b.id));
 
-        function reiniciarTodo() {
-            if (!confirm('¿Reiniciar todo el progreso? Se perderán los cursos marcados.')) return;
-            for (let id in cursosData) {
-                cursosData[id].estado = 'bloqueado';
-                cursosData[id].nota = null;
-            }
-            // Los cursos sin requisitos los dejamos disponibles
-            for (let id in cursosData) {
-                if (!cursosData[id].requisitos) {
-                    cursosData[id].estado = 'disponible';
-                }
-            }
-            renderizar();
-        }
-
-        // ================================================================
-        //  INICIALIZAR
-        // ================================================================
-
-        cargarProgreso();
-        renderizar();
-    </script>
-
-</body>
-</html>
+                for (let curso of cursosCiclo) {
+                    const card = document.createElement('div');
+                    card.className = `curso
