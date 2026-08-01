@@ -489,18 +489,24 @@
         // ================================================================
         //  DATOS DE CURSOS
         //  CICLOS 1-4: OCULTOS Y APROBADOS POR DEFECTO
-        //  CICLOS 5-10: VISIBLES
+        //  CICLO 5: VISIBLE Y DISPONIBLE POR DEFECTO
+        //  CICLOS 6-10: VISIBLES Y BLOQUEADOS
         // ================================================================
         
-        // Créditos totales por ciclo (para cálculos)
-        const creditosPorCiclo = {
-            1: 0, // Se calcula automáticamente
-            2: 0,
-            3: 0,
-            4: 0
-        };
-
         const cursosData = {
+            // ==================== CURSO EXTRA (APROBADO - NO VISIBLE) ====================
+            '1MAT09': {
+                id: '1MAT09',
+                nombre: 'Cálculo Aplicado (Extra)',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 0, // No pertenece a ningún ciclo
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: null,
+                oculto: true
+            },
+
             // ==================== CICLO 1 (OCULTO - APROBADO) ====================
             '1MAT04': {
                 id: '1MAT04',
@@ -1317,7 +1323,7 @@
             const ciclos = {};
             for (let id in cursosData) {
                 const curso = cursosData[id];
-                if (curso.oculto) continue; // Ocultar ciclos 1-4
+                if (curso.oculto) continue; // Ocultar ciclos 1-4 y curso extra
                 const ciclo = curso.ciclo || 0;
                 if (!ciclos[ciclo]) ciclos[ciclo] = [];
                 ciclos[ciclo].push(curso);
