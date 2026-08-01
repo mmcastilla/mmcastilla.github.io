@@ -1050,4 +1050,190 @@
 
                 for (let curso of cursosCiclo) {
                     const card = document.createElement('div');
-                    card.className = `curso
+                    card.className = `curso-card ${curso.estado}`;
+
+                    // Header
+                    const header = document.createElement('div');
+                    header.className = 'curso-header';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'curso-check';
+                    checkbox.checked = (curso.estado === 'aprobado' || curso.estado === 'cursado');
+                    checkbox.disabled = (curso.estado === 'bloqueado');
+                    checkbox.addEventListener('change', function(e) {
+                        e.stopPropagation();
+                        if (this.checked) {
+                            curso.estado = 'aprobado';
+                            curso.nota = 10;
+                        } else {
+                            curso.estado = 'disponible';
+                            curso.nota = null;
+                        }
+                        renderizar();
+                    });
+
+                    const info = document.createElement('div');
+                    info.className = 'curso-info';
+
+                    const codigo = document.createElement('span');
+                    codigo.className = 'curso-codigo';
+                    codigo.textContent = curso.id;
+
+                    const nombre = document.createElement('span');
+                    nombre.className = 'curso-nombre';
+                    nombre.textContent = curso.nombre || '';
+
+                    info.appendChild(codigo);
+                    info.appendChild(nombre);
+
+                    const creditosSpan = document.createElement('span');
+                    creditosSpan.className = 'curso-creditos';
+                    creditosSpan.textContent = `${curso.creditos} cr.`;
+
+                    header.appendChild(checkbox);
+                    header.appendChild(info);
+                    header.appendChild(creditosSpan);
+                    card.appendChild(header);
+
+                    // Badge
+                    const badge = document.createElement('span');
+                    badge.className = `curso-badge badge-${curso.estado}`;
+                    const estadoTexto = {
+                        'bloqueado': '🔒 Bloqueado',
+                        'disponible': '✅ Disponible',
+                        'cursando': '🔄 Cursando',
+                        'aprobado': '🎓 Aprobado',
+                        'cursado': '📖 Cursado'
+                    };
+                    badge.textContent = estadoTexto[curso.estado] || curso.estado;
+                    card.appendChild(badge);
+
+                    // Mostrar requisitos como etiquetas dentro de la tarjeta
+                    if (curso.requisitos && curso.requisitos.cursosRequeridos && curso.requisitos.cursosRequeridos.length > 0) {
+                        const reqDiv = document.createElement('div');
+                        reqDiv.style.cssText = 'font-size: 10px; color: #888; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 4px;';
+                        reqDiv.textContent = `← ${curso.requisitos.cursosRequeridos.join(', ')}`;
+                        card.appendChild(reqDiv);
+                    } else if (curso.requisitos && curso.requisitos.creditosRequeridos) {
+                        const reqDiv = document.createElement('div');
+                        reqDiv.style.cssText = 'font-size: 10px; color: #e53935; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 4px;';
+                        reqDiv.textContent = `← ${curso.requisitos.creditosRequeridos} cr. aprobados`;
+                        card.appendChild(reqDiv);
+                    }
+
+                    columna.appendChild(card);
+                }
+
+                container.appendChild(columna);
+
+                // --- Agregar flechas entre ciclos ---
+                const cicloActual = parseInt(ciclo);
+                const cicloSiguiente = cicloActual + 1;
+                if (ciclos[cicloSiguiente]) {
+                    const flechaContainer = document.createElement('div');
+                    flechaContainer.className = 'flecha-container';
+
+                    // Buscar relaciones entre cursos de este ciclo y el siguiente
+                    const cursosActual = ciclos[ciclo];
+                    const cursosSig = ciclos[cicloSiguiente];
+
+                    for (let cursoSig of cursosSig) {
+                        if (!cursoSig.requisitos || !cursoSig.requisitos.cursosRequeridos) continue;
+                        for (let reqId of cursoSig.requisitos.cursosRequeridos) {
+                            const cursoReq = cursosData[reqId];
+                            if (!cursoReq) continue;
+                            if (cursoReq.ciclo === cicloActual) {
+                                // Encontramos una relación
+                                const flecha = document.createElement('span');
+                                const tipoFlecha = getTipoFlecha(cursoSig.requisitos.tipo);
+                                const simbolo = getSimboloTipo(cursoSig.requisitos.tipo, cursoSig.requisitos.notaMinima);
+                                flecha.className = `flecha ${tipoFlecha}`;
+                                flecha.setAttribute('data-tooltip', `${cursoSig.id} ← ${reqId} (${cursoSig.requisitos.tipo})`);
+                                flecha.innerHTML = `<span class="arrow">↓</span> ${simbolo}`;
+                                flechaContainer.appendChild(flecha);
+                            }
+                        }
+                    }
+
+                    // Si hay requisitos de créditos, mostrarlos
+                    for (let cursoSig of cursosSig) {
+                        if (cursoSig.requisitos && cursoSig.requisitos.creditosRequeridos) {
+                            const flecha = document.createElement('span');
+                            flecha.className = 'flecha flecha-creditos';
+                            flecha.setAttribute('data-tooltip', `${cursoSig.id} ← ${cursoSig.requisitos.creditosRequeridos} créditos aprobados`);
+                            flecha.innerHTML = `<span class="arrow">↓</span> ${cursoSig.requisitos.creditosRequeridos} cr.`;
+                            flechaContainer.appendChild(flecha);
+                        }
+                    }
+
+                    if (flechaContainer.children.length > 0) {
+                        container.appendChild(flechaContainer);
+                    }
+                }
+            }
+
+            // Actualizar resumen
+            document.getElementById('totalAprobados').textContent = contarAprobados();
+            document.getElementById('totalCreditos').textContent = calcularCreditosAprobados();
+            document.getElementById('totalElectivos').textContent = calcularCreditosElectivos();
+
+            guardarProgreso();
+        }
+
+        // ================================================================
+        //  PERSISTENCIA
+        // ================================================================
+
+        function guardarProgreso() {
+            const progreso = {};
+            for (let id in cursosData) {
+                progreso[id] = {
+                    estado: cursosData[id].estado,
+                    nota: cursosData[id].nota
+                };
+            }
+            try {
+                localStorage.setItem('planEstudios_progreso', JSON.stringify(progreso));
+            } catch (e) { /* ignorar */ }
+        }
+
+        function cargarProgreso() {
+            try {
+                const data = localStorage.getItem('planEstudios_progreso');
+                if (!data) return;
+                const progreso = JSON.parse(data);
+                for (let id in progreso) {
+                    if (cursosData[id]) {
+                        cursosData[id].estado = progreso[id].estado;
+                        cursosData[id].nota = progreso[id].nota;
+                    }
+                }
+            } catch (e) { /* ignorar */ }
+        }
+
+        function reiniciarTodo() {
+            if (!confirm('¿Reiniciar todo el progreso? Se perderán los cursos marcados.')) return;
+            for (let id in cursosData) {
+                cursosData[id].estado = 'bloqueado';
+                cursosData[id].nota = null;
+            }
+            for (let id in cursosData) {
+                if (!cursosData[id].requisitos || 
+                    (cursosData[id].requisitos.cursosRequeridos && cursosData[id].requisitos.cursosRequeridos.length === 0)) {
+                    cursosData[id].estado = 'disponible';
+                }
+            }
+            renderizar();
+        }
+
+        // ================================================================
+        //  INICIALIZAR
+        // ================================================================
+
+        cargarProgreso();
+        renderizar();
+    </script>
+
+</body>
+</html>
