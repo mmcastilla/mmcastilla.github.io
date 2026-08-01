@@ -70,10 +70,10 @@
         /* ========== CONTENEDOR DE CICLOS ========== */
         .ciclos-container {
             display: flex;
-            gap: 20px;
+            gap: 10px;
             overflow-x: auto;
             padding: 10px 0 20px 0;
-            align-items: flex-start;
+            align-items: stretch;
         }
         
         .ciclo-columna {
@@ -84,7 +84,8 @@
             border-radius: 12px;
             padding: 12px;
             border: 2px solid #e0e0e0;
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .ciclo-titulo {
@@ -108,6 +109,7 @@
             transition: all 0.3s ease;
             position: relative;
             box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            flex-shrink: 0;
         }
         
         .curso-card:hover {
@@ -203,73 +205,87 @@
         .badge-cursando { background: #ffe0b2; color: #e65100; }
         .badge-aprobado { background: #bbdefb; color: #0d47a1; }
         
-        /* ========== FLECHAS ========== */
-        .flecha-container {
+        /* ========== CONECTORES (FLECHAS ESTILO SQL) ========== */
+        .conector-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-width: 40px;
-            padding: 8px 4px;
+            align-items: center;
+            min-width: 60px;
+            padding: 4px 0;
             gap: 6px;
+            flex-shrink: 0;
         }
         
-        .flecha {
+        .conector {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 8px;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 6px;
             background: white;
             border: 1px solid #e0e0e0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            font-size: 11px;
+            font-weight: 500;
             white-space: nowrap;
             cursor: help;
             transition: all 0.2s;
+            position: relative;
         }
         
-        .flecha:hover {
-            transform: scale(1.05);
+        .conector:hover {
+            transform: scale(1.04);
             box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
         
-        .flecha .arrow {
-            font-size: 20px;
+        .conector .linea {
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+        }
+        
+        .conector .punta {
+            font-size: 18px;
             line-height: 1;
         }
         
-        .flecha-aprobado { border-left: 4px solid #2196F3; }
-        .flecha-aprobado .arrow { color: #2196F3; }
-        
-        .flecha-paralelo { border-left: 4px solid #FF9800; }
-        .flecha-paralelo .arrow { color: #FF9800; }
-        
-        .flecha-nota { border-left: 4px solid #9C27B0; }
-        .flecha-nota .arrow { color: #9C27B0; }
-        
-        .flecha-cursado { border-left: 4px solid #4CAF50; }
-        .flecha-cursado .arrow { color: #4CAF50; }
-        
-        .flecha-creditos {
-            border-left: 4px solid #e53935;
-            background: #fff5f5;
-        }
-        .flecha-creditos .arrow { color: #e53935; }
-        
-        .flecha .simbolo {
-            font-size: 14px;
-        }
-        
-        .flecha .label-curso {
-            font-size: 11px;
+        .conector .label {
+            font-size: 10px;
             color: #555;
             font-weight: 400;
         }
         
-        /* Tooltip en flechas */
-        .flecha[data-tooltip]:hover::after {
+        /* Colores de conectores */
+        .conector-aprobado { border-left: 4px solid #2196F3; }
+        .conector-aprobado .linea { background: #2196F3; }
+        .conector-aprobado .punta { color: #2196F3; }
+        
+        .conector-paralelo { border-left: 4px solid #FF9800; }
+        .conector-paralelo .linea { background: #FF9800; }
+        .conector-paralelo .punta { color: #FF9800; }
+        
+        .conector-nota { border-left: 4px solid #9C27B0; }
+        .conector-nota .linea { background: #9C27B0; }
+        .conector-nota .punta { color: #9C27B0; }
+        
+        .conector-cursado { border-left: 4px solid #4CAF50; }
+        .conector-cursado .linea { background: #4CAF50; }
+        .conector-cursado .punta { color: #4CAF50; }
+        
+        .conector-creditos {
+            border-left: 4px solid #e53935;
+            background: #fff5f5;
+        }
+        .conector-creditos .linea { background: #e53935; }
+        .conector-creditos .punta { color: #e53935; }
+        
+        .conector .simbolo {
+            font-size: 13px;
+        }
+        
+        /* Tooltip */
+        .conector[data-tooltip]:hover::after {
             content: attr(data-tooltip);
             position: absolute;
             bottom: calc(100% + 8px);
@@ -277,16 +293,16 @@
             transform: translateX(-50%);
             background: #1a1a2e;
             color: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
             white-space: nowrap;
             z-index: 100;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             font-weight: 400;
         }
         
-        .flecha[data-tooltip] {
+        .conector[data-tooltip] {
             position: relative;
         }
         
@@ -408,7 +424,7 @@
             body { padding: 15px; }
             .ciclos-container { flex-direction: column; align-items: stretch; }
             .ciclo-columna { min-width: unset; max-width: unset; }
-            .flecha-container { flex-direction: row; flex-wrap: wrap; padding: 8px 0; }
+            .conector-container { flex-direction: row; flex-wrap: wrap; padding: 8px 0; min-width: unset; }
             .resumen { flex-direction: column; gap: 10px; }
             .resumen-botones { margin-left: 0; }
             .leyenda-inferior .grid { grid-template-columns: 1fr; }
@@ -488,29 +504,26 @@
     <script>
         // ================================================================
         //  DATOS DE CURSOS
-        //  CICLOS 1-4: OCULTOS Y APROBADOS POR DEFECTO
-        //  CICLO 5: VISIBLE Y DISPONIBLE POR DEFECTO
-        //  CICLOS 6-10: VISIBLES Y BLOQUEADOS
         // ================================================================
         
         const cursosData = {
-            // ==================== CURSO EXTRA (APROBADO - NO VISIBLE) ====================
+            // ==================== CURSO EXTRA ====================
             '1MAT09': {
                 id: '1MAT09',
                 nombre: 'Cálculo Aplicado (Extra)',
                 creditos: 4.50,
                 tipo: 'obligatorio',
-                ciclo: 0, // No pertenece a ningún ciclo
+                ciclo: 0,
                 estado: 'aprobado',
                 nota: 10,
                 requisitos: null,
                 oculto: true
             },
 
-            // ==================== CICLO 1 (OCULTO - APROBADO) ====================
+            // ==================== CICLO 1 ====================
             '1MAT04': {
                 id: '1MAT04',
-                nombre: 'Álgebra matricial y geometría analítica',
+                nombre: 'Álgebra matricial y geom. analítica',
                 creditos: 4.50,
                 tipo: 'obligatorio',
                 ciclo: 1,
@@ -564,7 +577,7 @@
                 oculto: true
             },
 
-            // ==================== CICLO 2 (OCULTO - APROBADO) ====================
+            // ==================== CICLO 2 ====================
             '1MAT06': {
                 id: '1MAT06',
                 nombre: 'Cálculo diferencial',
@@ -632,7 +645,7 @@
                 oculto: true
             },
 
-            // ==================== CICLO 3 (OCULTO - APROBADO) ====================
+            // ==================== CICLO 3 ====================
             '1MAT07': {
                 id: '1MAT07',
                 nombre: 'Cálculo integral',
@@ -700,7 +713,7 @@
                 oculto: true
             },
 
-            // ==================== CICLO 4 (OCULTO - APROBADO) ====================
+            // ==================== CICLO 4 ====================
             '1MAT23': {
                 id: '1MAT23',
                 nombre: 'Cálculo vectorial',
@@ -836,7 +849,7 @@
                 oculto: false
             },
 
-            // ==================== CICLO 6 (VISIBLE) ====================
+            // ==================== CICLO 6 ====================
             '1IND46': {
                 id: '1IND46',
                 nombre: 'Habilidades Directivas',
@@ -872,7 +885,7 @@
             },
             '1IND49': {
                 id: '1IND49',
-                nombre: 'Fundamentos de la Cadena de Suministros',
+                nombre: 'Fundamentos Cadena de Suministros',
                 creditos: 4.00,
                 tipo: 'obligatorio',
                 ciclo: 6,
@@ -905,7 +918,7 @@
             },
             'MEC245': {
                 id: 'MEC245',
-                nombre: 'Laboratorio de Termodinámica General',
+                nombre: 'Laboratorio de Termodinámica',
                 creditos: 1.00,
                 tipo: 'obligatorio',
                 ciclo: 6,
@@ -915,7 +928,7 @@
                 oculto: false
             },
 
-            // ==================== CICLO 7 (VISIBLE) ====================
+            // ==================== CICLO 7 ====================
             '1IND50': {
                 id: '1IND50',
                 nombre: 'Gestión del Talento Humano',
@@ -940,7 +953,7 @@
             },
             '1IND52': {
                 id: '1IND52',
-                nombre: 'Diseño de la Cadena de Suministros',
+                nombre: 'Diseño Cadena de Suministros',
                 creditos: 4.00,
                 tipo: 'obligatorio',
                 ciclo: 7,
@@ -962,7 +975,7 @@
             },
             '1MEC09': {
                 id: '1MEC09',
-                nombre: 'Taller de Procesos de Manufactura',
+                nombre: 'Taller Procesos Manufactura',
                 creditos: 1.00,
                 tipo: 'obligatorio',
                 ciclo: 7,
@@ -994,10 +1007,10 @@
                 oculto: false
             },
 
-            // ==================== CICLO 8 (VISIBLE) ====================
+            // ==================== CICLO 8 ====================
             '1IND53': {
                 id: '1IND53',
-                nombre: 'Dinámica de la Cadena de Suministro Esbelta',
+                nombre: 'Dinámica Cadena Suministro Esbelta',
                 creditos: 4.00,
                 tipo: 'obligatorio',
                 ciclo: 8,
@@ -1041,7 +1054,7 @@
             },
             'IND277': {
                 id: 'IND277',
-                nombre: 'Laboratorio de Procesos Industriales',
+                nombre: 'Laboratorio Procesos Industriales',
                 creditos: 1.00,
                 tipo: 'obligatorio',
                 ciclo: 8,
@@ -1084,7 +1097,7 @@
                 oculto: false
             },
 
-            // ==================== CICLO 9 (VISIBLE) ====================
+            // ==================== CICLO 9 ====================
             '1IND54': {
                 id: '1IND54',
                 nombre: 'Automatización e Industria 4.0',
@@ -1152,7 +1165,7 @@
                 oculto: false
             },
 
-            // ==================== CICLO 10 (VISIBLE) ====================
+            // ==================== CICLO 10 ====================
             '1IND57': {
                 id: '1IND57',
                 nombre: 'Gestión de la Innovación',
@@ -1177,7 +1190,7 @@
             },
             'IND201': {
                 id: 'IND201',
-                nombre: 'Ética Profesional en Ingeniería Industrial',
+                nombre: 'Ética Profesional',
                 creditos: 3.00,
                 tipo: 'obligatorio',
                 ciclo: 10,
@@ -1208,18 +1221,6 @@
             for (let id in cursosData) {
                 const c = cursosData[id];
                 if (c.estado === 'aprobado' || c.estado === 'cursado') {
-                    total += c.creditos || 0;
-                }
-            }
-            return Math.round(total * 100) / 100;
-        }
-
-        function calcularCreditosElectivos() {
-            let total = 0;
-            for (let id in cursosData) {
-                const c = cursosData[id];
-                if ((c.tipo === 'electivo_especialidad' || c.tipo === 'electivo_libre') &&
-                    (c.estado === 'aprobado' || c.estado === 'cursado')) {
                     total += c.creditos || 0;
                 }
             }
@@ -1270,11 +1271,6 @@
                 if (creditosAprobados < req.creditosRequeridos) cumple = false;
             }
 
-            if (req.electivosRequeridos !== undefined && req.electivosRequeridos > 0) {
-                const creditosElectivos = calcularCreditosElectivos();
-                if (creditosElectivos < req.electivosRequeridos) cumple = false;
-            }
-
             return cumple;
         }
 
@@ -1290,17 +1286,17 @@
         }
 
         // ================================================================
-        //  RENDERIZADO CON CICLOS Y FLECHAS
+        //  RENDERIZADO CON CONECTORES ESTILO SQL
         // ================================================================
 
-        function getTipoFlecha(tipo) {
+        function getTipoConector(tipo) {
             const mapa = {
-                'aprobado': 'flecha-aprobado',
-                'aprobado_o_paralelo': 'flecha-paralelo',
-                'nota_minima': 'flecha-nota',
-                'cursado_o_paralelo': 'flecha-cursado'
+                'aprobado': 'conector-aprobado',
+                'aprobado_o_paralelo': 'conector-paralelo',
+                'nota_minima': 'conector-nota',
+                'cursado_o_paralelo': 'conector-cursado'
             };
-            return mapa[tipo] || 'flecha-aprobado';
+            return mapa[tipo] || 'conector-aprobado';
         }
 
         function getSimboloTipo(tipo, notaMinima) {
@@ -1323,7 +1319,7 @@
             const ciclos = {};
             for (let id in cursosData) {
                 const curso = cursosData[id];
-                if (curso.oculto) continue; // Ocultar ciclos 1-4 y curso extra
+                if (curso.oculto) continue;
                 const ciclo = curso.ciclo || 0;
                 if (!ciclos[ciclo]) ciclos[ciclo] = [];
                 ciclos[ciclo].push(curso);
@@ -1331,9 +1327,13 @@
 
             const ciclosOrdenados = Object.keys(ciclos).sort((a, b) => a - b);
 
+            // Construir columnas con conectores
+            const columnaElements = {};
+
             for (let ciclo of ciclosOrdenados) {
                 const columna = document.createElement('div');
                 columna.className = 'ciclo-columna';
+                columna.dataset.ciclo = ciclo;
 
                 const titulo = document.createElement('div');
                 titulo.className = 'ciclo-titulo';
@@ -1345,6 +1345,7 @@
                 for (let curso of cursosCiclo) {
                     const card = document.createElement('div');
                     card.className = `curso-card ${curso.estado}`;
+                    card.id = `curso-${curso.id}`;
 
                     const header = document.createElement('div');
                     header.className = 'curso-header';
@@ -1401,7 +1402,7 @@
                     badge.textContent = estadoTexto[curso.estado] || curso.estado;
                     card.appendChild(badge);
 
-                    // Mostrar requisitos dentro de la tarjeta
+                    // Mostrar requisitos dentro de la tarjeta (solo texto)
                     if (curso.requisitos) {
                         const reqDiv = document.createElement('div');
                         reqDiv.style.cssText = 'font-size: 10px; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 4px; color: #888;';
@@ -1425,17 +1426,18 @@
                 }
 
                 container.appendChild(columna);
+                columnaElements[ciclo] = columna;
 
-                // === FLECHAS ENTRE CICLOS ===
+                // === CONECTOR ENTRE CICLOS ===
                 const cicloActual = parseInt(ciclo);
                 const cicloSiguiente = cicloActual + 1;
                 
                 if (ciclos[cicloSiguiente]) {
-                    const flechaContainer = document.createElement('div');
-                    flechaContainer.className = 'flecha-container';
+                    const conectorContainer = document.createElement('div');
+                    conectorContainer.className = 'conector-container';
 
                     const cursosSig = ciclos[cicloSiguiente];
-                    let tieneFlecha = false;
+                    let tieneConector = false;
 
                     for (let cursoSig of cursosSig) {
                         if (!cursoSig.requisitos || !cursoSig.requisitos.cursosRequeridos) continue;
@@ -1444,50 +1446,55 @@
                             const cursoReq = cursosData[reqId];
                             if (!cursoReq) continue;
                             
+                            // Mostrar conector si el requisito está en el ciclo actual o es de ciclo <5
                             if (cursoReq.ciclo === cicloActual || cursoReq.ciclo < 5) {
-                                tieneFlecha = true;
+                                tieneConector = true;
                                 
-                                const flecha = document.createElement('div');
-                                const tipoFlecha = getTipoFlecha(cursoSig.requisitos.tipo);
+                                const conector = document.createElement('div');
+                                const tipoConector = getTipoConector(cursoSig.requisitos.tipo);
                                 const simbolo = getSimboloTipo(cursoSig.requisitos.tipo, cursoSig.requisitos.notaMinima);
                                 
-                                flecha.className = `flecha ${tipoFlecha}`;
-                                flecha.setAttribute('data-tooltip', `${reqId} → ${cursoSig.id} (${cursoSig.requisitos.tipo})`);
-                                flecha.innerHTML = `
-                                    <span class="arrow">↓</span>
+                                conector.className = `conector ${tipoConector}`;
+                                conector.setAttribute('data-tooltip', `${reqId} → ${cursoSig.id} (${cursoSig.requisitos.tipo})`);
+                                
+                                // Mostrar el conector con línea y punta de flecha
+                                conector.innerHTML = `
+                                    <span class="label">${reqId}</span>
+                                    <span class="linea"></span>
+                                    <span class="punta">▶</span>
                                     <span class="simbolo">${simbolo}</span>
-                                    <span class="label-curso">${reqId}</span>
                                 `;
-                                flechaContainer.appendChild(flecha);
+                                conectorContainer.appendChild(conector);
                             }
                         }
                     }
 
-                    // Requisitos de créditos
+                    // Conectores de créditos
                     for (let cursoSig of cursosSig) {
                         if (cursoSig.requisitos && cursoSig.requisitos.creditosRequeridos) {
-                            tieneFlecha = true;
-                            const flecha = document.createElement('div');
-                            flecha.className = 'flecha flecha-creditos';
-                            flecha.setAttribute('data-tooltip', `${cursoSig.id} ← ${cursoSig.requisitos.creditosRequeridos} créditos aprobados`);
-                            flecha.innerHTML = `
-                                <span class="arrow">↓</span>
+                            tieneConector = true;
+                            const conector = document.createElement('div');
+                            conector.className = 'conector conector-creditos';
+                            conector.setAttribute('data-tooltip', `${cursoSig.id} ← ${cursoSig.requisitos.creditosRequeridos} créditos aprobados`);
+                            conector.innerHTML = `
+                                <span class="label">${cursoSig.requisitos.creditosRequeridos} cr.</span>
+                                <span class="linea"></span>
+                                <span class="punta">▶</span>
                                 <span class="simbolo">📊</span>
-                                <span class="label-curso">${cursoSig.requisitos.creditosRequeridos} cr.</span>
                             `;
-                            flechaContainer.appendChild(flecha);
+                            conectorContainer.appendChild(conector);
                         }
                     }
 
-                    if (tieneFlecha) {
-                        container.appendChild(flechaContainer);
+                    if (tieneConector) {
+                        container.appendChild(conectorContainer);
                     }
                 }
             }
 
             document.getElementById('totalAprobados').textContent = contarAprobados();
             document.getElementById('totalCreditos').textContent = calcularCreditosAprobados();
-            document.getElementById('totalElectivos').textContent = calcularCreditosElectivos();
+            document.getElementById('totalElectivos').textContent = 0;
 
             guardarProgreso();
         }
@@ -1524,7 +1531,7 @@
         }
 
         function reiniciarTodo() {
-            if (!confirm('¿Reiniciar todo el progreso? Se perderán los cursos marcados.')) return;
+            if (!confirm('¿Reiniciar todo el progreso?')) return;
             for (let id in cursosData) {
                 const curso = cursosData[id];
                 if (curso.oculto) {
@@ -1535,7 +1542,6 @@
                     curso.nota = null;
                 }
             }
-            // Dejar disponibles los del ciclo 5
             for (let id in cursosData) {
                 const curso = cursosData[id];
                 if (curso.ciclo === 5 && !curso.oculto) {
