@@ -351,143 +351,482 @@
         //  DATOS DE CURSOS (MODIFICA AQUÍ CON LOS TUYOS)
         // ================================================================
         const cursosData = {
-            // ---- CICLO 1 ----
-            '1FIS01': {
-                id: '1FIS01',
-                nombre: 'Física I',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'disponible', // 'bloqueado' | 'disponible' | 'cursando' | 'aprobado'
-                nota: null,
-                requisitos: null // Sin requisitos
-            },
-            '1MAT01': {
-                id: '1MAT01',
-                nombre: 'Matemática I',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'disponible',
-                nota: null,
-                requisitos: null
-            },
-            '1QUI01': {
-                id: '1QUI01',
-                nombre: 'Química I',
-                creditos: 3,
-                tipo: 'obligatorio',
-                estado: 'disponible',
-                nota: null,
-                requisitos: null
-            },
-            
-            // ---- CICLO 2 ----
-            '1FIS02': {
-                id: '1FIS02',
-                nombre: 'Física II',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1FIS01']
-                }
-            },
-            '1MAT02': {
-                id: '1MAT02',
-                nombre: 'Matemática II',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1MAT01']
-                }
-            },
-            
-            // ---- CICLO 3 ----
-            '1FIS03': {
-                id: '1FIS03',
-                nombre: 'Física III',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1FIS02']
-                }
-            },
-            '1MAT03': {
-                id: '1MAT03',
-                nombre: 'Matemática III',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1MAT02'],
-                    creditosRequeridos: 12 // Necesita 12 créditos aprobados
-                }
-            },
-            
-            // ---- CICLO 4 ----
-            '1FIS04': {
-                id: '1FIS04',
-                nombre: 'Física IV',
-                creditos: 4,
-                tipo: 'obligatorio',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'nota_minima',
-                    cursosRequeridos: ['1FIS03'],
-                    notaMinima: 8
-                }
-            },
-            
-            // ---- ELECTIVOS ----
-            'ELE01': {
-                id: 'ELE01',
-                nombre: 'Electivo de Especialidad A',
-                creditos: 3,
-                tipo: 'electivo_especialidad',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'cursado_o_paralelo',
-                    cursosRequeridos: ['1FIS02'],
-                    electivosRequeridos: 0 // No aplica para este ejemplo
-                }
-            },
-            'ELE02': {
-                id: 'ELE02',
-                nombre: 'Electivo de Libre Disposición',
-                creditos: 2,
-                tipo: 'electivo_libre',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1MAT02']
-                }
-            },
-            'ELE03': {
-                id: 'ELE03',
-                nombre: 'Electivo de Especialidad B',
-                creditos: 4,
-                tipo: 'electivo_especialidad',
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1FIS03', '1MAT03']
-                }
-            }
-        };
+    // ==================== CICLO 5 ====================
+    '1IND44': {
+        id: '1IND44',
+        nombre: 'Gestión Empresarial',
+        creditos: 3.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: [],
+            creditosRequeridos: 70
+        }
+    },
+    '1IND45': {
+        id: '1IND45',
+        nombre: 'Control Estadístico de Calidad',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1EST21', '1IND65']
+        }
+    },
+    '1INF23': {
+        id: '1INF23',
+        nombre: 'Introducción a la Programación',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND65']
+        }
+    },
+    '1MEC39': {
+        id: '1MEC39',
+        nombre: 'Introducción a la Termodinámica',
+        creditos: 2.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1FIS04', '1MAT07', '1QUI02']
+        }
+    },
+    'ECO204': {
+        id: 'ECO204',
+        nombre: 'Economía General',
+        creditos: 4.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: [],
+            creditosRequeridos: 70
+        }
+    },
+    'MEC266': {
+        id: 'MEC266',
+        nombre: 'Dibujo Mecánico',
+        creditos: 2.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1ING02']
+        }
+    },
 
+    // ==================== CICLO 6 ====================
+    '1IND46': {
+        id: '1IND46',
+        nombre: 'Habilidades Directivas',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND44']
+        }
+    },
+    '1IND47': {
+        id: '1IND47',
+        nombre: 'Modelos Determinísticos',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1EST21']
+        }
+    },
+    '1IND48': {
+        id: '1IND48',
+        nombre: 'Analytics 1',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1INF23', '1EST21']
+        }
+    },
+    '1IND49': {
+        id: '1IND49',
+        nombre: 'Fundamentos de la Cadena de Suministros',
+        creditos: 4.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND45']
+        }
+    },
+    'IND231': {
+        id: 'IND231',
+        nombre: 'Ingeniería Económica',
+        creditos: 3.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: [],
+            creditosRequeridos: 80
+        }
+    },
+    'ING217': {
+        id: 'ING217',
+        nombre: 'Resistencia de Materiales 1A',
+        creditos: 3.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['1IND64', '1MAT23', 'MEC266']
+        }
+    },
+    'MEC245': {
+        id: 'MEC245',
+        nombre: 'Laboratorio de Termodinámica General',
+        creditos: 1.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1MEC39']
+        }
+    },
+
+    // ==================== CICLO 7 ====================
+    '1IND50': {
+        id: '1IND50',
+        nombre: 'Gestión del Talento Humano',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND46']
+        }
+    },
+    '1IND51': {
+        id: '1IND51',
+        nombre: 'Analytics 2',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND48']
+        }
+    },
+    '1IND52': {
+        id: '1IND52',
+        nombre: 'Diseño de la Cadena de Suministros',
+        creditos: 4.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'nota_minima',
+            cursosRequeridos: ['1IND45'],
+            notaMinima: 8,
+            creditosRequeridos: 0
+        }
+    },
+    '1MEC07': {
+        id: '1MEC07',
+        nombre: 'Ingeniería de Materiales',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1FIS04', '1QUI02']
+        }
+    },
+    '1MEC09': {
+        id: '1MEC09',
+        nombre: 'Taller de Procesos de Manufactura',
+        creditos: 1.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['ING127']
+        }
+    },
+    'IND270': {
+        id: 'IND270',
+        nombre: 'Procesos Industriales',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1MEC39']
+        }
+    },
+    'IND275': {
+        id: 'IND275',
+        nombre: 'Control de Gestión Industrial',
+        creditos: 4.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['IND231', 'ECO204']
+        }
+    },
+
+    // ==================== CICLO 8 ====================
+    '1IND53': {
+        id: '1IND53',
+        nombre: 'Dinámica de la Cadena de Suministro Esbelta',
+        creditos: 4.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'nota_minima',
+            cursosRequeridos: ['1IND49'],
+            notaMinima: 8
+        }
+    },
+    '1IND59': {
+        id: '1IND59',
+        nombre: 'Simulación',
+        creditos: 2.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND47']
+        }
+    },
+    '1MEC10': {
+        id: '1MEC10',
+        nombre: 'Procesos de Manufactura',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['MEC266', '1MEC09', '1MEC07']
+        }
+    },
+    'IEE272': {
+        id: 'IEE272',
+        nombre: 'Electricidad Industrial',
+        creditos: 2.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1FIS06']
+        }
+    },
+    'IND277': {
+        id: 'IND277',
+        nombre: 'Laboratorio de Procesos Industriales',
+        creditos: 1.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'cursado_o_paralelo',
+            cursosRequeridos: ['IND270']
+        }
+    },
+    'IND283': {
+        id: 'IND283',
+        nombre: 'Mercadotecnia Industrial',
+        creditos: 3.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND44', '1EST21']
+        }
+    },
+    'IND284': {
+        id: 'IND284',
+        nombre: 'Finanzas Industriales',
+        creditos: 3.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['IND275']
+        }
+    },
+    '1IND43': {
+        id: '1IND43',
+        nombre: 'Práctica Supervisada Preprofesional',
+        creditos: 0.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: [],
+            creditosRequeridos: 130
+        }
+    },
+
+    // ==================== CICLO 9 ====================
+    '1IND54': {
+        id: '1IND54',
+        nombre: 'Automatización e Industria 4.0',
+        creditos: 4.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['IEE272', '1MEC10', 'IND277']
+        }
+    },
+    '1IND55': {
+        id: '1IND55',
+        nombre: 'Proyecto de Mejora',
+        creditos: 2.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND51', '1IND53']
+        }
+    },
+    '1IND56': {
+        id: '1IND56',
+        nombre: 'Proyecto de Ingeniería Industrial 1',
+        creditos: 2.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['1IND43', '1IND55', '1IND91']
+        }
+    },
+    '1IND61': {
+        id: '1IND61',
+        nombre: 'Análisis y Diseño de Sistemas',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND53']
+        }
+    },
+    '1IND91': {
+        id: '1IND91',
+        nombre: 'Elaboración y Evaluación de Proyectos',
+        creditos: 3.75,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318']
+        }
+    },
+    'IND318': {
+        id: 'IND318',
+        nombre: 'Gestión Ambiental',
+        creditos: 3.50,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['IND270', 'IND277']
+        }
+    },
+
+    // ==================== CICLO 10 ====================
+    '1IND57': {
+        id: '1IND57',
+        nombre: 'Gestión de la Innovación',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: [],
+            creditosRequeridos: 70
+        }
+    },
+    '1IND58': {
+        id: '1IND58',
+        nombre: 'Proyecto de Ingeniería Industrial 2',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado',
+            cursosRequeridos: ['1IND56']
+        }
+    },
+    'IND201': {
+        id: 'IND201',
+        nombre: 'Ética Profesional en Ingeniería Industrial',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['1IND91']
+        }
+    },
+    'IND328': {
+        id: 'IND328',
+        nombre: 'Gestión de Proyectos',
+        creditos: 3.00,
+        tipo: 'obligatorio',
+        estado: 'bloqueado',
+        nota: null,
+        requisitos: {
+            tipo: 'aprobado_o_paralelo',
+            cursosRequeridos: ['1IND91']
+        }
+    }
+};
         // ================================================================
         //  FUNCIONES PRINCIPALES
         // ================================================================
