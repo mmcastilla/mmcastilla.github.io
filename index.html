@@ -35,7 +35,7 @@
             margin-bottom: 25px;
         }
         
-        /* ========== LEYENDA ========== */
+        /* ========== LEYENDA SUPERIOR ========== */
         .leyenda {
             display: flex;
             flex-wrap: wrap;
@@ -115,7 +115,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.10);
         }
         
-        /* Estados */
         .curso-card.bloqueado {
             opacity: 0.5;
             background: #f5f5f5;
@@ -210,73 +209,148 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-width: 30px;
-            padding: 4px 0;
-            position: relative;
+            min-width: 40px;
+            padding: 8px 4px;
+            gap: 6px;
         }
         
         .flecha {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 11px;
+            gap: 6px;
+            font-size: 12px;
             font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.8);
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             white-space: nowrap;
             cursor: help;
+            transition: all 0.2s;
+        }
+        
+        .flecha:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
         
         .flecha .arrow {
-            font-size: 18px;
+            font-size: 20px;
             line-height: 1;
         }
         
-        .flecha-aprobado { color: #2196F3; }
+        .flecha .label-curso {
+            font-size: 11px;
+            color: #555;
+            font-weight: 400;
+        }
+        
+        .flecha-aprobado { border-left: 4px solid #2196F3; }
         .flecha-aprobado .arrow { color: #2196F3; }
         
-        .flecha-paralelo { color: #FF9800; }
+        .flecha-paralelo { border-left: 4px solid #FF9800; }
         .flecha-paralelo .arrow { color: #FF9800; }
         
-        .flecha-nota { color: #9C27B0; }
+        .flecha-nota { border-left: 4px solid #9C27B0; }
         .flecha-nota .arrow { color: #9C27B0; }
         
-        .flecha-cursado { color: #4CAF50; }
+        .flecha-cursado { border-left: 4px solid #4CAF50; }
         .flecha-cursado .arrow { color: #4CAF50; }
         
         .flecha-creditos {
-            color: #e53935;
-            font-size: 10px;
-            background: #ffebee;
-            padding: 2px 8px;
-            border-radius: 12px;
-            border: 1px solid #ef9a9a;
+            border-left: 4px solid #e53935;
+            background: #fff5f5;
+        }
+        .flecha-creditos .arrow { color: #e53935; }
+        
+        .flecha .simbolo {
+            font-size: 14px;
         }
         
         /* Tooltip en flechas */
         .flecha[data-tooltip]:hover::after {
             content: attr(data-tooltip);
             position: absolute;
-            bottom: calc(100% + 6px);
+            bottom: calc(100% + 8px);
             left: 50%;
             transform: translateX(-50%);
             background: #1a1a2e;
             color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 11px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
             white-space: nowrap;
             z-index: 100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-weight: 400;
         }
+        
+        .flecha[data-tooltip] {
+            position: relative;
+        }
+        
+        /* ========== LEYENDA INFERIOR ========== */
+        .leyenda-inferior {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-top: 30px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .leyenda-inferior h3 {
+            font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .leyenda-inferior .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+        }
+        
+        .leyenda-inferior .item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #ccc;
+        }
+        
+        .leyenda-inferior .item .icono {
+            font-size: 18px;
+        }
+        
+        .leyenda-inferior .item .texto {
+            font-size: 13px;
+            color: #333;
+        }
+        
+        .leyenda-inferior .item .texto small {
+            color: #888;
+            font-size: 11px;
+        }
+        
+        .item-aprobado { border-left-color: #2196F3; }
+        .item-paralelo { border-left-color: #FF9800; }
+        .item-nota { border-left-color: #9C27B0; }
+        .item-cursado { border-left-color: #4CAF50; }
+        .item-creditos { border-left-color: #e53935; }
         
         /* ========== RESUMEN ========== */
         .resumen {
             background: white;
             border-radius: 12px;
             padding: 18px 24px;
-            margin-top: 30px;
+            margin-top: 20px;
             border: 1px solid #e0e0e0;
             display: flex;
             flex-wrap: wrap;
@@ -334,9 +408,10 @@
             body { padding: 15px; }
             .ciclos-container { flex-direction: column; align-items: stretch; }
             .ciclo-columna { min-width: unset; max-width: unset; }
-            .flecha-container { flex-direction: row; padding: 4px 0; }
+            .flecha-container { flex-direction: row; flex-wrap: wrap; padding: 8px 0; }
             .resumen { flex-direction: column; gap: 10px; }
             .resumen-botones { margin-left: 0; }
+            .leyenda-inferior .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -345,7 +420,7 @@
     <h1>📚 Plan de Estudios Interactivo</h1>
     <p class="subtitulo">Marca los cursos que apruebas y mira cómo se desbloquean los siguientes.</p>
 
-    <!-- LEYENDA -->
+    <!-- LEYENDA SUPERIOR -->
     <div class="leyenda">
         <span class="leyenda-item">
             <span class="leyenda-color color-aprobado"></span> Requiere APROBADO
@@ -383,19 +458,149 @@
         </div>
     </div>
 
+    <!-- LEYENDA INFERIOR (tipos de relación) -->
+    <div class="leyenda-inferior">
+        <h3>📋 Tipos de relación entre cursos</h3>
+        <div class="grid">
+            <div class="item item-aprobado">
+                <span class="icono">✅</span>
+                <span class="texto"><strong>Requiere APROBADO</strong><br><small>El curso debe estar aprobado</small></span>
+            </div>
+            <div class="item item-paralelo">
+                <span class="icono">🔄</span>
+                <span class="texto"><strong>Aprobado O cursar en paralelo</strong><br><small>Aprobado o llevarlo al mismo tiempo</small></span>
+            </div>
+            <div class="item item-nota">
+                <span class="icono">📝≥8</span>
+                <span class="texto"><strong>Nota mínima 08</strong><br><small>Haber cursado con nota 08 o más</small></span>
+            </div>
+            <div class="item item-cursado">
+                <span class="icono">📖</span>
+                <span class="texto"><strong>Cursado O en paralelo</strong><br><small>Haber cursado o llevarlo al mismo tiempo</small></span>
+            </div>
+            <div class="item item-creditos">
+                <span class="icono">📊</span>
+                <span class="texto"><strong>Créditos mínimos</strong><br><small>Ej: 70 cr. aprob. del plan</small></span>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ================================================================
         //  DATOS DE CURSOS (con ciclo explícito)
+        //  CICLO 5 ACTIVO POR DEFECTO
         // ================================================================
         const cursosData = {
-            // ==================== CICLO 5 ====================
+            // ==================== CICLOS 1-4 (REQUISITOS) ====================
+            '1EST21': {
+                id: '1EST21',
+                nombre: 'Estadística Aplicada',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1IND65': {
+                id: '1IND65',
+                nombre: 'Introducción a la Ingeniería Industrial',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1FIS04': {
+                id: '1FIS04',
+                nombre: 'Física IV',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1MAT07': {
+                id: '1MAT07',
+                nombre: 'Matemática VII',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1QUI02': {
+                id: '1QUI02',
+                nombre: 'Química II',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1ING02': {
+                id: '1ING02',
+                nombre: 'Inglés II',
+                creditos: 2.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1IND64': {
+                id: '1IND64',
+                nombre: 'Mecánica Vectorial',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1MAT23': {
+                id: '1MAT23',
+                nombre: 'Matemática XXIII',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            '1FIS06': {
+                id: '1FIS06',
+                nombre: 'Física VI',
+                creditos: 4.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+            'ING127': {
+                id: 'ING127',
+                nombre: 'Inglés VII',
+                creditos: 2.00,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'disponible',
+                nota: 10,
+                requisitos: null
+            },
+
+            // ==================== CICLO 5 (ACTIVO POR DEFECTO) ====================
             '1IND44': {
                 id: '1IND44',
                 nombre: 'Gestión Empresarial',
                 creditos: 3.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'bloqueado',
+                estado: 'disponible', // ← ACTIVO POR DEFECTO
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -409,7 +614,7 @@
                 creditos: 3.00,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'bloqueado',
+                estado: 'disponible', // ← ACTIVO POR DEFECTO
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -422,7 +627,7 @@
                 creditos: 3.00,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'bloqueado',
+                estado: 'disponible', // ← ACTIVO POR DEFECTO
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -435,7 +640,7 @@
                 creditos: 2.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'bloqueado',
+                estado: 'disponible', // ← ACTIVO POR DEFECTO
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -448,7 +653,7 @@
                 creditos: 4.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'bloqueado',
+                estado: 'disponible', // ← ACTIVO POR DEFECTO
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -462,7 +667,7 @@
                 creditos: 2.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'bloqueado',
+                estado: 'disponible', // ← ACTIVO POR DEFECTO
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -829,411 +1034,4 @@
                 estado: 'bloqueado',
                 nota: null,
                 requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318']
-                }
-            },
-            'IND318': {
-                id: 'IND318',
-                nombre: 'Gestión Ambiental',
-                creditos: 3.50,
-                tipo: 'obligatorio',
-                ciclo: 9,
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['IND270', 'IND277']
-                }
-            },
-
-            // ==================== CICLO 10 ====================
-            '1IND57': {
-                id: '1IND57',
-                nombre: 'Gestión de la Innovación',
-                creditos: 3.00,
-                tipo: 'obligatorio',
-                ciclo: 10,
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: [],
-                    creditosRequeridos: 70
-                }
-            },
-            '1IND58': {
-                id: '1IND58',
-                nombre: 'Proyecto de Ingeniería Industrial 2',
-                creditos: 3.00,
-                tipo: 'obligatorio',
-                ciclo: 10,
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND56']
-                }
-            },
-            'IND201': {
-                id: 'IND201',
-                nombre: 'Ética Profesional en Ingeniería Industrial',
-                creditos: 3.00,
-                tipo: 'obligatorio',
-                ciclo: 10,
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1IND91']
-                }
-            },
-            'IND328': {
-                id: 'IND328',
-                nombre: 'Gestión de Proyectos',
-                creditos: 3.00,
-                tipo: 'obligatorio',
-                ciclo: 10,
-                estado: 'bloqueado',
-                nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1IND91']
-                }
-            }
-        };
-
-        // ================================================================
-        //  FUNCIONES PRINCIPALES
-        // ================================================================
-
-        function calcularCreditosAprobados() {
-            let total = 0;
-            for (let id in cursosData) {
-                const c = cursosData[id];
-                if (c.estado === 'aprobado' || c.estado === 'cursado') {
-                    total += c.creditos || 0;
-                }
-            }
-            return total;
-        }
-
-        function calcularCreditosElectivos() {
-            let total = 0;
-            for (let id in cursosData) {
-                const c = cursosData[id];
-                if ((c.tipo === 'electivo_especialidad' || c.tipo === 'electivo_libre') &&
-                    (c.estado === 'aprobado' || c.estado === 'cursado')) {
-                    total += c.creditos || 0;
-                }
-            }
-            return total;
-        }
-
-        function contarAprobados() {
-            let count = 0;
-            for (let id in cursosData) {
-                if (cursosData[id].estado === 'aprobado') count++;
-            }
-            return count;
-        }
-
-        function cursoCumpleRequisitos(cursoId) {
-            const curso = cursosData[cursoId];
-            if (!curso.requisitos) return true;
-
-            const req = curso.requisitos;
-            let cumple = true;
-
-            if (req.cursosRequeridos && req.cursosRequeridos.length > 0) {
-                for (let reqId of req.cursosRequeridos) {
-                    const cursoReq = cursosData[reqId];
-                    if (!cursoReq) { cumple = false; continue; }
-
-                    switch (req.tipo) {
-                        case 'aprobado':
-                            if (cursoReq.estado !== 'aprobado') cumple = false;
-                            break;
-                        case 'aprobado_o_paralelo':
-                            if (cursoReq.estado !== 'aprobado' && cursoReq.estado !== 'cursando') cumple = false;
-                            break;
-                        case 'nota_minima':
-                            if (cursoReq.estado !== 'aprobado' || cursoReq.nota < req.notaMinima) cumple = false;
-                            break;
-                        case 'cursado_o_paralelo':
-                            if (cursoReq.estado !== 'cursado' && cursoReq.estado !== 'aprobado' && cursoReq.estado !== 'cursando') cumple = false;
-                            break;
-                        default:
-                            cumple = false;
-                    }
-                }
-            }
-
-            if (req.creditosRequeridos) {
-                const creditosAprobados = calcularCreditosAprobados();
-                if (creditosAprobados < req.creditosRequeridos) cumple = false;
-            }
-
-            if (req.electivosRequeridos !== undefined && req.electivosRequeridos > 0) {
-                const creditosElectivos = calcularCreditosElectivos();
-                if (creditosElectivos < req.electivosRequeridos) cumple = false;
-            }
-
-            return cumple;
-        }
-
-        function actualizarEstados() {
-            for (let id in cursosData) {
-                const curso = cursosData[id];
-                if (curso.estado === 'aprobado' || curso.estado === 'cursando' || curso.estado === 'cursado') {
-                    continue;
-                }
-                const cumple = cursoCumpleRequisitos(id);
-                curso.estado = cumple ? 'disponible' : 'bloqueado';
-            }
-        }
-
-        // ================================================================
-        //  RENDERIZADO CON CICLOS Y FLECHAS
-        // ================================================================
-
-        function getTipoFlecha(tipo) {
-            const mapa = {
-                'aprobado': 'flecha-aprobado',
-                'aprobado_o_paralelo': 'flecha-paralelo',
-                'nota_minima': 'flecha-nota',
-                'cursado_o_paralelo': 'flecha-cursado'
-            };
-            return mapa[tipo] || 'flecha-aprobado';
-        }
-
-        function getSimboloTipo(tipo, notaMinima) {
-            const mapa = {
-                'aprobado': '✅',
-                'aprobado_o_paralelo': '🔄',
-                'nota_minima': `📝≥${notaMinima || 8}`,
-                'cursado_o_paralelo': '📖'
-            };
-            return mapa[tipo] || '✅';
-        }
-
-        function renderizar() {
-            actualizarEstados();
-
-            const container = document.getElementById('ciclosContainer');
-            container.innerHTML = '';
-
-            // Agrupar por ciclo
-            const ciclos = {};
-            for (let id in cursosData) {
-                const curso = cursosData[id];
-                const ciclo = curso.ciclo || 0;
-                if (!ciclos[ciclo]) ciclos[ciclo] = [];
-                ciclos[ciclo].push(curso);
-            }
-
-            // Ordenar ciclos
-            const ciclosOrdenados = Object.keys(ciclos).sort((a, b) => a - b);
-
-            // Construir columnas
-            for (let ciclo of ciclosOrdenados) {
-                const columna = document.createElement('div');
-                columna.className = 'ciclo-columna';
-
-                const titulo = document.createElement('div');
-                titulo.className = 'ciclo-titulo';
-                titulo.textContent = `📘 Ciclo ${ciclo}`;
-                columna.appendChild(titulo);
-
-                // Ordenar cursos dentro del ciclo
-                const cursosCiclo = ciclos[ciclo].sort((a, b) => a.id.localeCompare(b.id));
-
-                for (let curso of cursosCiclo) {
-                    const card = document.createElement('div');
-                    card.className = `curso-card ${curso.estado}`;
-
-                    // Header
-                    const header = document.createElement('div');
-                    header.className = 'curso-header';
-
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.className = 'curso-check';
-                    checkbox.checked = (curso.estado === 'aprobado' || curso.estado === 'cursado');
-                    checkbox.disabled = (curso.estado === 'bloqueado');
-                    checkbox.addEventListener('change', function(e) {
-                        e.stopPropagation();
-                        if (this.checked) {
-                            curso.estado = 'aprobado';
-                            curso.nota = 10;
-                        } else {
-                            curso.estado = 'disponible';
-                            curso.nota = null;
-                        }
-                        renderizar();
-                    });
-
-                    const info = document.createElement('div');
-                    info.className = 'curso-info';
-
-                    const codigo = document.createElement('span');
-                    codigo.className = 'curso-codigo';
-                    codigo.textContent = curso.id;
-
-                    const nombre = document.createElement('span');
-                    nombre.className = 'curso-nombre';
-                    nombre.textContent = curso.nombre || '';
-
-                    info.appendChild(codigo);
-                    info.appendChild(nombre);
-
-                    const creditosSpan = document.createElement('span');
-                    creditosSpan.className = 'curso-creditos';
-                    creditosSpan.textContent = `${curso.creditos} cr.`;
-
-                    header.appendChild(checkbox);
-                    header.appendChild(info);
-                    header.appendChild(creditosSpan);
-                    card.appendChild(header);
-
-                    // Badge
-                    const badge = document.createElement('span');
-                    badge.className = `curso-badge badge-${curso.estado}`;
-                    const estadoTexto = {
-                        'bloqueado': '🔒 Bloqueado',
-                        'disponible': '✅ Disponible',
-                        'cursando': '🔄 Cursando',
-                        'aprobado': '🎓 Aprobado',
-                        'cursado': '📖 Cursado'
-                    };
-                    badge.textContent = estadoTexto[curso.estado] || curso.estado;
-                    card.appendChild(badge);
-
-                    // Mostrar requisitos como etiquetas dentro de la tarjeta
-                    if (curso.requisitos && curso.requisitos.cursosRequeridos && curso.requisitos.cursosRequeridos.length > 0) {
-                        const reqDiv = document.createElement('div');
-                        reqDiv.style.cssText = 'font-size: 10px; color: #888; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 4px;';
-                        reqDiv.textContent = `← ${curso.requisitos.cursosRequeridos.join(', ')}`;
-                        card.appendChild(reqDiv);
-                    } else if (curso.requisitos && curso.requisitos.creditosRequeridos) {
-                        const reqDiv = document.createElement('div');
-                        reqDiv.style.cssText = 'font-size: 10px; color: #e53935; margin-top: 6px; border-top: 1px dashed #eee; padding-top: 4px;';
-                        reqDiv.textContent = `← ${curso.requisitos.creditosRequeridos} cr. aprobados`;
-                        card.appendChild(reqDiv);
-                    }
-
-                    columna.appendChild(card);
-                }
-
-                container.appendChild(columna);
-
-                // --- Agregar flechas entre ciclos ---
-                const cicloActual = parseInt(ciclo);
-                const cicloSiguiente = cicloActual + 1;
-                if (ciclos[cicloSiguiente]) {
-                    const flechaContainer = document.createElement('div');
-                    flechaContainer.className = 'flecha-container';
-
-                    // Buscar relaciones entre cursos de este ciclo y el siguiente
-                    const cursosActual = ciclos[ciclo];
-                    const cursosSig = ciclos[cicloSiguiente];
-
-                    for (let cursoSig of cursosSig) {
-                        if (!cursoSig.requisitos || !cursoSig.requisitos.cursosRequeridos) continue;
-                        for (let reqId of cursoSig.requisitos.cursosRequeridos) {
-                            const cursoReq = cursosData[reqId];
-                            if (!cursoReq) continue;
-                            if (cursoReq.ciclo === cicloActual) {
-                                // Encontramos una relación
-                                const flecha = document.createElement('span');
-                                const tipoFlecha = getTipoFlecha(cursoSig.requisitos.tipo);
-                                const simbolo = getSimboloTipo(cursoSig.requisitos.tipo, cursoSig.requisitos.notaMinima);
-                                flecha.className = `flecha ${tipoFlecha}`;
-                                flecha.setAttribute('data-tooltip', `${cursoSig.id} ← ${reqId} (${cursoSig.requisitos.tipo})`);
-                                flecha.innerHTML = `<span class="arrow">↓</span> ${simbolo}`;
-                                flechaContainer.appendChild(flecha);
-                            }
-                        }
-                    }
-
-                    // Si hay requisitos de créditos, mostrarlos
-                    for (let cursoSig of cursosSig) {
-                        if (cursoSig.requisitos && cursoSig.requisitos.creditosRequeridos) {
-                            const flecha = document.createElement('span');
-                            flecha.className = 'flecha flecha-creditos';
-                            flecha.setAttribute('data-tooltip', `${cursoSig.id} ← ${cursoSig.requisitos.creditosRequeridos} créditos aprobados`);
-                            flecha.innerHTML = `<span class="arrow">↓</span> ${cursoSig.requisitos.creditosRequeridos} cr.`;
-                            flechaContainer.appendChild(flecha);
-                        }
-                    }
-
-                    if (flechaContainer.children.length > 0) {
-                        container.appendChild(flechaContainer);
-                    }
-                }
-            }
-
-            // Actualizar resumen
-            document.getElementById('totalAprobados').textContent = contarAprobados();
-            document.getElementById('totalCreditos').textContent = calcularCreditosAprobados();
-            document.getElementById('totalElectivos').textContent = calcularCreditosElectivos();
-
-            guardarProgreso();
-        }
-
-        // ================================================================
-        //  PERSISTENCIA
-        // ================================================================
-
-        function guardarProgreso() {
-            const progreso = {};
-            for (let id in cursosData) {
-                progreso[id] = {
-                    estado: cursosData[id].estado,
-                    nota: cursosData[id].nota
-                };
-            }
-            try {
-                localStorage.setItem('planEstudios_progreso', JSON.stringify(progreso));
-            } catch (e) { /* ignorar */ }
-        }
-
-        function cargarProgreso() {
-            try {
-                const data = localStorage.getItem('planEstudios_progreso');
-                if (!data) return;
-                const progreso = JSON.parse(data);
-                for (let id in progreso) {
-                    if (cursosData[id]) {
-                        cursosData[id].estado = progreso[id].estado;
-                        cursosData[id].nota = progreso[id].nota;
-                    }
-                }
-            } catch (e) { /* ignorar */ }
-        }
-
-        function reiniciarTodo() {
-            if (!confirm('¿Reiniciar todo el progreso? Se perderán los cursos marcados.')) return;
-            for (let id in cursosData) {
-                cursosData[id].estado = 'bloqueado';
-                cursosData[id].nota = null;
-            }
-            for (let id in cursosData) {
-                if (!cursosData[id].requisitos || 
-                    (cursosData[id].requisitos.cursosRequeridos && cursosData[id].requisitos.cursosRequeridos.length === 0)) {
-                    cursosData[id].estado = 'disponible';
-                }
-            }
-            renderizar();
-        }
-
-        // ================================================================
-        //  INICIALIZAR
-        // ================================================================
-
-        cargarProgreso();
-        renderizar();
-    </script>
-
-</body>
-</html>
+                    tipo: 'aprob
