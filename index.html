@@ -240,12 +240,6 @@
             line-height: 1;
         }
         
-        .flecha .label-curso {
-            font-size: 11px;
-            color: #555;
-            font-weight: 400;
-        }
-        
         .flecha-aprobado { border-left: 4px solid #2196F3; }
         .flecha-aprobado .arrow { color: #2196F3; }
         
@@ -266,6 +260,12 @@
         
         .flecha .simbolo {
             font-size: 14px;
+        }
+        
+        .flecha .label-curso {
+            font-size: 11px;
+            color: #555;
+            font-weight: 400;
         }
         
         /* Tooltip en flechas */
@@ -600,7 +600,7 @@
                 creditos: 3.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'disponible', // ← ACTIVO POR DEFECTO
+                estado: 'disponible',
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -614,7 +614,7 @@
                 creditos: 3.00,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'disponible', // ← ACTIVO POR DEFECTO
+                estado: 'disponible',
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -627,7 +627,7 @@
                 creditos: 3.00,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'disponible', // ← ACTIVO POR DEFECTO
+                estado: 'disponible',
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -640,7 +640,7 @@
                 creditos: 2.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'disponible', // ← ACTIVO POR DEFECTO
+                estado: 'disponible',
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -653,7 +653,7 @@
                 creditos: 4.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'disponible', // ← ACTIVO POR DEFECTO
+                estado: 'disponible',
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -667,7 +667,7 @@
                 creditos: 2.50,
                 tipo: 'obligatorio',
                 ciclo: 5,
-                estado: 'disponible', // ← ACTIVO POR DEFECTO
+                estado: 'disponible',
                 nota: null,
                 requisitos: {
                     tipo: 'aprobado',
@@ -1034,4 +1034,18 @@
                 estado: 'bloqueado',
                 nota: null,
                 requisitos: {
-                    tipo: 'aprob
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318']
+                }
+            },
+            'IND318': {
+                id: 'IND318',
+                nombre: 'Gestión Ambiental',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 9,
+                estado: 'bloqueado',
+                nota: null,
+                requisitos: {
+                    tipo: 'aprobado_o_paralelo',
+                    cursosRequeridos: ['IND270', 'IND
