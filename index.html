@@ -418,7 +418,7 @@
 <body>
 
     <h1>📚 Plan de Estudios Interactivo</h1>
-    <p class="subtitulo">Marca los cursos que apruebas y mira cómo se desbloquean los siguientes.</p>
+    <p class="subtitulo">Marca los cursos que apruebas (Ciclo 5 al 10) y mira cómo se desbloquean los siguientes.</p>
 
     <!-- LEYENDA SUPERIOR -->
     <div class="leyenda">
@@ -487,113 +487,282 @@
 
     <script>
         // ================================================================
-        //  DATOS DE CURSOS (con ciclo explícito)
-        //  CICLO 5 ACTIVO POR DEFECTO
+        //  DATOS DE CURSOS
+        //  CICLOS 1-4: OCULTOS Y APROBADOS POR DEFECTO
+        //  CICLOS 5-10: VISIBLES
         // ================================================================
+        
+        // Créditos totales por ciclo (para cálculos)
+        const creditosPorCiclo = {
+            1: 0, // Se calcula automáticamente
+            2: 0,
+            3: 0,
+            4: 0
+        };
+
         const cursosData = {
-            // ==================== CICLOS 1-4 (REQUISITOS) ====================
-            '1EST21': {
-                id: '1EST21',
-                nombre: 'Estadística Aplicada',
-                creditos: 4.00,
+            // ==================== CICLO 1 (OCULTO - APROBADO) ====================
+            '1MAT04': {
+                id: '1MAT04',
+                nombre: 'Álgebra matricial y geometría analítica',
+                creditos: 4.50,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 1,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: null,
+                oculto: true
             },
-            '1IND65': {
-                id: '1IND65',
-                nombre: 'Introducción a la Ingeniería Industrial',
+            '1MAT05': {
+                id: '1MAT05',
+                nombre: 'Fundamentos de cálculo',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 1,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: null,
+                oculto: true
+            },
+            '1FIS01': {
+                id: '1FIS01',
+                nombre: 'Fundamentos de física',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 1,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: null,
+                oculto: true
+            },
+            '1IND62': {
+                id: '1IND62',
+                nombre: 'Taller de ingeniería industrial',
+                creditos: 2.50,
+                tipo: 'obligatorio',
+                ciclo: 1,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: null,
+                oculto: true
+            },
+            '1LIN15': {
+                id: '1LIN15',
+                nombre: 'Comunicación académica',
                 creditos: 3.00,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 1,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: null,
+                oculto: true
             },
-            '1FIS04': {
-                id: '1FIS04',
-                nombre: 'Física IV',
-                creditos: 4.00,
+
+            // ==================== CICLO 2 (OCULTO - APROBADO) ====================
+            '1MAT06': {
+                id: '1MAT06',
+                nombre: 'Cálculo diferencial',
+                creditos: 4.50,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 2,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1MAT05', '1MAT04'] },
+                oculto: true
             },
-            '1MAT07': {
-                id: '1MAT07',
-                nombre: 'Matemática VII',
-                creditos: 4.00,
+            '1FIS02': {
+                id: '1FIS02',
+                nombre: 'Física 1',
+                creditos: 4.50,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 2,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS01', '1MAT06', '1FIS03'] },
+                oculto: true
             },
-            '1QUI02': {
-                id: '1QUI02',
-                nombre: 'Química II',
-                creditos: 3.00,
+            '1FIS03': {
+                id: '1FIS03',
+                nombre: 'Laboratorio de física 1',
+                creditos: 0.50,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 2,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS02'] },
+                oculto: true
             },
             '1ING02': {
                 id: '1ING02',
-                nombre: 'Inglés II',
-                creditos: 2.00,
+                nombre: 'Dibujo en ingeniería',
+                creditos: 4.50,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 2,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1MAT04'] },
+                oculto: true
+            },
+            '1LIN16': {
+                id: '1LIN16',
+                nombre: 'Trabajo académico',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 2,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1LIN15'] },
+                oculto: true
+            },
+            '1FIL01': {
+                id: '1FIL01',
+                nombre: 'Ciencia y filosofía',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 2,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: null,
+                oculto: true
+            },
+
+            // ==================== CICLO 3 (OCULTO - APROBADO) ====================
+            '1MAT07': {
+                id: '1MAT07',
+                nombre: 'Cálculo integral',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 3,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1MAT06', '1MAT04'] },
+                oculto: true
+            },
+            '1FIS04': {
+                id: '1FIS04',
+                nombre: 'Física 2',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 3,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS02', '1FIS03', '1MAT07', '1FIS05'] },
+                oculto: true
+            },
+            '1FIS05': {
+                id: '1FIS05',
+                nombre: 'Laboratorio de física 2',
+                creditos: 0.50,
+                tipo: 'obligatorio',
+                ciclo: 3,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS04'] },
+                oculto: true
+            },
+            '1QUI01': {
+                id: '1QUI01',
+                nombre: 'Química 1',
+                creditos: 3.50,
+                tipo: 'obligatorio',
+                ciclo: 3,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: null,
+                oculto: true
+            },
+            '1IND63': {
+                id: '1IND63',
+                nombre: 'Seguridad y ergonomía',
+                creditos: 3.00,
+                tipo: 'obligatorio',
+                ciclo: 3,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND62'] },
+                oculto: true
             },
             '1IND64': {
                 id: '1IND64',
-                nombre: 'Mecánica Vectorial',
-                creditos: 4.00,
+                nombre: 'Mecánica para ingenieros',
+                creditos: 3.50,
                 tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
+                ciclo: 3,
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS02', '1MAT07'] },
+                oculto: true
             },
+
+            // ==================== CICLO 4 (OCULTO - APROBADO) ====================
             '1MAT23': {
                 id: '1MAT23',
-                nombre: 'Matemática XXIII',
-                creditos: 3.00,
+                nombre: 'Cálculo vectorial',
+                creditos: 4.50,
                 tipo: 'obligatorio',
                 ciclo: 4,
-                estado: 'disponible',
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1MAT07'] },
+                oculto: true
             },
             '1FIS06': {
                 id: '1FIS06',
-                nombre: 'Física VI',
+                nombre: 'Física 3',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS04', '1FIS05', '1FIS07'] },
+                oculto: true
+            },
+            '1FIS07': {
+                id: '1FIS07',
+                nombre: 'Laboratorio de física 3',
+                creditos: 0.50,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1FIS06'] },
+                oculto: true
+            },
+            'EST145': {
+                id: 'EST145',
+                nombre: 'Estadística',
+                creditos: 4.50,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1MAT07'] },
+                oculto: true
+            },
+            '1QUI02': {
+                id: '1QUI02',
+                nombre: 'Laboratorio de química 1',
+                creditos: 0.75,
+                tipo: 'obligatorio',
+                ciclo: 4,
+                estado: 'aprobado',
+                nota: 10,
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1QUI01'] },
+                oculto: true
+            },
+            '1IND65': {
+                id: '1IND65',
+                nombre: 'Estudio del trabajo',
                 creditos: 4.00,
                 tipo: 'obligatorio',
                 ciclo: 4,
-                estado: 'disponible',
+                estado: 'aprobado',
                 nota: 10,
-                requisitos: null
-            },
-            'ING127': {
-                id: 'ING127',
-                nombre: 'Inglés VII',
-                creditos: 2.00,
-                tipo: 'obligatorio',
-                ciclo: 4,
-                estado: 'disponible',
-                nota: 10,
-                requisitos: null
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND63'] },
+                oculto: true
             },
 
-            // ==================== CICLO 5 (ACTIVO POR DEFECTO) ====================
+            // ==================== CICLO 5 (VISIBLE - DISPONIBLE) ====================
             '1IND44': {
                 id: '1IND44',
                 nombre: 'Gestión Empresarial',
@@ -602,11 +771,8 @@
                 ciclo: 5,
                 estado: 'disponible',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: [],
-                    creditosRequeridos: 70
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: [], creditosRequeridos: 70 },
+                oculto: false
             },
             '1IND45': {
                 id: '1IND45',
@@ -616,10 +782,8 @@
                 ciclo: 5,
                 estado: 'disponible',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1EST21', '1IND65']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['EST145', '1IND65'] },
+                oculto: false
             },
             '1INF23': {
                 id: '1INF23',
@@ -629,10 +793,8 @@
                 ciclo: 5,
                 estado: 'disponible',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND65']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND65'] },
+                oculto: false
             },
             '1MEC39': {
                 id: '1MEC39',
@@ -642,10 +804,8 @@
                 ciclo: 5,
                 estado: 'disponible',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1FIS04', '1MAT07', '1QUI02']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1FIS04', '1MAT07', '1QUI02'] },
+                oculto: false
             },
             'ECO204': {
                 id: 'ECO204',
@@ -655,11 +815,8 @@
                 ciclo: 5,
                 estado: 'disponible',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: [],
-                    creditosRequeridos: 70
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: [], creditosRequeridos: 70 },
+                oculto: false
             },
             'MEC266': {
                 id: 'MEC266',
@@ -669,13 +826,11 @@
                 ciclo: 5,
                 estado: 'disponible',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1ING02']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1ING02'] },
+                oculto: false
             },
 
-            // ==================== CICLO 6 ====================
+            // ==================== CICLO 6 (VISIBLE) ====================
             '1IND46': {
                 id: '1IND46',
                 nombre: 'Habilidades Directivas',
@@ -684,10 +839,8 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND44']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND44'] },
+                oculto: false
             },
             '1IND47': {
                 id: '1IND47',
@@ -697,10 +850,8 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1EST21']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['EST145'] },
+                oculto: false
             },
             '1IND48': {
                 id: '1IND48',
@@ -710,10 +861,8 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1INF23', '1EST21']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1INF23', 'EST145'] },
+                oculto: false
             },
             '1IND49': {
                 id: '1IND49',
@@ -723,10 +872,8 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND45']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND45'] },
+                oculto: false
             },
             'IND231': {
                 id: 'IND231',
@@ -736,11 +883,8 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: [],
-                    creditosRequeridos: 80
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: [], creditosRequeridos: 80 },
+                oculto: false
             },
             'ING217': {
                 id: 'ING217',
@@ -750,10 +894,8 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1IND64', '1MAT23', 'MEC266']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1IND64', '1MAT23', 'MEC266'] },
+                oculto: false
             },
             'MEC245': {
                 id: 'MEC245',
@@ -763,13 +905,11 @@
                 ciclo: 6,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1MEC39']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1MEC39'] },
+                oculto: false
             },
 
-            // ==================== CICLO 7 ====================
+            // ==================== CICLO 7 (VISIBLE) ====================
             '1IND50': {
                 id: '1IND50',
                 nombre: 'Gestión del Talento Humano',
@@ -778,10 +918,8 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND46']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND46'] },
+                oculto: false
             },
             '1IND51': {
                 id: '1IND51',
@@ -791,10 +929,8 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND48']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND48'] },
+                oculto: false
             },
             '1IND52': {
                 id: '1IND52',
@@ -804,12 +940,8 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'nota_minima',
-                    cursosRequeridos: ['1IND45'],
-                    notaMinima: 8,
-                    creditosRequeridos: 0
-                }
+                requisitos: { tipo: 'nota_minima', cursosRequeridos: ['1IND45'], notaMinima: 8 },
+                oculto: false
             },
             '1MEC07': {
                 id: '1MEC07',
@@ -819,10 +951,8 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1FIS04', '1QUI02']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1FIS04', '1QUI02'] },
+                oculto: false
             },
             '1MEC09': {
                 id: '1MEC09',
@@ -832,10 +962,8 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['ING127']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1ING02'] },
+                oculto: false
             },
             'IND270': {
                 id: 'IND270',
@@ -845,10 +973,8 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1MEC39']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1MEC39'] },
+                oculto: false
             },
             'IND275': {
                 id: 'IND275',
@@ -858,13 +984,11 @@
                 ciclo: 7,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['IND231', 'ECO204']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['IND231', 'ECO204'] },
+                oculto: false
             },
 
-            // ==================== CICLO 8 ====================
+            // ==================== CICLO 8 (VISIBLE) ====================
             '1IND53': {
                 id: '1IND53',
                 nombre: 'Dinámica de la Cadena de Suministro Esbelta',
@@ -873,11 +997,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'nota_minima',
-                    cursosRequeridos: ['1IND49'],
-                    notaMinima: 8
-                }
+                requisitos: { tipo: 'nota_minima', cursosRequeridos: ['1IND49'], notaMinima: 8 },
+                oculto: false
             },
             '1IND59': {
                 id: '1IND59',
@@ -887,10 +1008,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND47']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND47'] },
+                oculto: false
             },
             '1MEC10': {
                 id: '1MEC10',
@@ -900,10 +1019,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['MEC266', '1MEC09', '1MEC07']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['MEC266', '1MEC09', '1MEC07'] },
+                oculto: false
             },
             'IEE272': {
                 id: 'IEE272',
@@ -913,10 +1030,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1FIS06']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1FIS06'] },
+                oculto: false
             },
             'IND277': {
                 id: 'IND277',
@@ -926,10 +1041,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'cursado_o_paralelo',
-                    cursosRequeridos: ['IND270']
-                }
+                requisitos: { tipo: 'cursado_o_paralelo', cursosRequeridos: ['IND270'] },
+                oculto: false
             },
             'IND283': {
                 id: 'IND283',
@@ -939,10 +1052,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND44', '1EST21']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND44', 'EST145'] },
+                oculto: false
             },
             'IND284': {
                 id: 'IND284',
@@ -952,10 +1063,8 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['IND275']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['IND275'] },
+                oculto: false
             },
             '1IND43': {
                 id: '1IND43',
@@ -965,14 +1074,11 @@
                 ciclo: 8,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: [],
-                    creditosRequeridos: 130
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: [], creditosRequeridos: 130 },
+                oculto: false
             },
 
-            // ==================== CICLO 9 ====================
+            // ==================== CICLO 9 (VISIBLE) ====================
             '1IND54': {
                 id: '1IND54',
                 nombre: 'Automatización e Industria 4.0',
@@ -981,10 +1087,8 @@
                 ciclo: 9,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['IEE272', '1MEC10', 'IND277']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['IEE272', '1MEC10', 'IND277'] },
+                oculto: false
             },
             '1IND55': {
                 id: '1IND55',
@@ -994,10 +1098,8 @@
                 ciclo: 9,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND51', '1IND53']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND51', '1IND53'] },
+                oculto: false
             },
             '1IND56': {
                 id: '1IND56',
@@ -1007,10 +1109,8 @@
                 ciclo: 9,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1IND43', '1IND55', '1IND91']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1IND43', '1IND55', '1IND91'] },
+                oculto: false
             },
             '1IND61': {
                 id: '1IND61',
@@ -1020,10 +1120,8 @@
                 ciclo: 9,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND53']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND53'] },
+                oculto: false
             },
             '1IND91': {
                 id: '1IND91',
@@ -1033,10 +1131,8 @@
                 ciclo: 9,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['IND283', 'IND284', '1IND52', 'IND318'] },
+                oculto: false
             },
             'IND318': {
                 id: 'IND318',
@@ -1046,13 +1142,11 @@
                 ciclo: 9,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['IND270', 'IND277']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['IND270', 'IND277'] },
+                oculto: false
             },
 
-            // ==================== CICLO 10 ====================
+            // ==================== CICLO 10 (VISIBLE) ====================
             '1IND57': {
                 id: '1IND57',
                 nombre: 'Gestión de la Innovación',
@@ -1061,11 +1155,8 @@
                 ciclo: 10,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: [],
-                    creditosRequeridos: 70
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: [], creditosRequeridos: 70 },
+                oculto: false
             },
             '1IND58': {
                 id: '1IND58',
@@ -1075,10 +1166,8 @@
                 ciclo: 10,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado',
-                    cursosRequeridos: ['1IND56']
-                }
+                requisitos: { tipo: 'aprobado', cursosRequeridos: ['1IND56'] },
+                oculto: false
             },
             'IND201': {
                 id: 'IND201',
@@ -1088,10 +1177,8 @@
                 ciclo: 10,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1IND91']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1IND91'] },
+                oculto: false
             },
             'IND328': {
                 id: 'IND328',
@@ -1101,10 +1188,8 @@
                 ciclo: 10,
                 estado: 'bloqueado',
                 nota: null,
-                requisitos: {
-                    tipo: 'aprobado_o_paralelo',
-                    cursosRequeridos: ['1IND91']
-                }
+                requisitos: { tipo: 'aprobado_o_paralelo', cursosRequeridos: ['1IND91'] },
+                oculto: false
             }
         };
 
@@ -1120,7 +1205,7 @@
                     total += c.creditos || 0;
                 }
             }
-            return total;
+            return Math.round(total * 100) / 100;
         }
 
         function calcularCreditosElectivos() {
@@ -1132,7 +1217,7 @@
                     total += c.creditos || 0;
                 }
             }
-            return total;
+            return Math.round(total * 100) / 100;
         }
 
         function contarAprobados() {
@@ -1228,10 +1313,11 @@
             const container = document.getElementById('ciclosContainer');
             container.innerHTML = '';
 
-            // Agrupar por ciclo
+            // Agrupar por ciclo (solo mostrar ciclos 5-10)
             const ciclos = {};
             for (let id in cursosData) {
                 const curso = cursosData[id];
+                if (curso.oculto) continue; // Ocultar ciclos 1-4
                 const ciclo = curso.ciclo || 0;
                 if (!ciclos[ciclo]) ciclos[ciclo] = [];
                 ciclos[ciclo].push(curso);
@@ -1434,13 +1520,19 @@
         function reiniciarTodo() {
             if (!confirm('¿Reiniciar todo el progreso? Se perderán los cursos marcados.')) return;
             for (let id in cursosData) {
-                cursosData[id].estado = 'bloqueado';
-                cursosData[id].nota = null;
+                const curso = cursosData[id];
+                if (curso.oculto) {
+                    curso.estado = 'aprobado';
+                    curso.nota = 10;
+                } else {
+                    curso.estado = 'bloqueado';
+                    curso.nota = null;
+                }
             }
-            // Dejar disponibles los ciclos 1-4 y el ciclo 5
+            // Dejar disponibles los del ciclo 5
             for (let id in cursosData) {
                 const curso = cursosData[id];
-                if (curso.ciclo <= 5 || !curso.requisitos) {
+                if (curso.ciclo === 5 && !curso.oculto) {
                     curso.estado = 'disponible';
                 }
             }
